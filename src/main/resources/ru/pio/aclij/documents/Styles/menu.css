@@ -1,0 +1,25 @@
+.financial_menu_container {
+    -fx-border-color: -menu-border-color;
+    -fx-border-width: 10;
+}
+.document_log {
+    -fx-padding: 5 10 5 10;
+    -fx-border-width: 15;
+    -fx-border-color: -right_bar-background;
+}
+.right_bar{
+    -fx-background-color: -right_bar-background;
+}
+.document_buttons_container {
+    -fx-alignment: center;
+    -fx-spacing: 20;
+}
+
+.exit_container {
+    -fx-alignment: center;
+}
+.right_bar .button {
+    -fx-pref-width: 120;
+    -fx-pref-height: 25;
+    -fx-background-radius: 0;
+}

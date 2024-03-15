@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="financial_menu_container" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ListView prefHeight="380.0" prefWidth="253.0" styleClass="document_log" stylesheets="@Styles/menu.css" HBox.hgrow="ALWAYS" />
+      <VBox alignment="TOP_RIGHT" prefHeight="380.0" prefWidth="154.0" styleClass="right_bar">
+         <children>
+            <VBox alignment="TOP_CENTER" prefHeight="318.0" prefWidth="200.0" styleClass="document_buttons_container" stylesheets="@Styles/menu.css" VBox.vgrow="ALWAYS">
+               <children>
+                  <Button mnemonicParsing="false" text="Накладная">
+                     <font>
+                        <Font size="11.0" />
+                     </font></Button>
+                  <Button layoutX="27.0" layoutY="157.0" mnemonicParsing="false" text="Платёжка">
+                     <font>
+                        <Font size="11.0" />
+                     </font></Button>
+                  <Button layoutX="27.0" layoutY="169.0" mnemonicParsing="false" text="Заявка на оплату">
+                     <font>
+                        <Font size="11.0" />
+                     </font></Button>
+                  <Button layoutX="27.0" layoutY="182.0" mnemonicParsing="false" text="Сохранить\">
+                     <font>
+                        <Font size="11.0" />
+                     </font></Button>
+                  <Button layoutX="27.0" layoutY="194.0" mnemonicParsing="false" text="Загрузить">
+                     <font>
+                        <Font size="11.0" />
+                     </font></Button>
+                  <Button layoutX="27.0" layoutY="207.0" mnemonicParsing="false" text="Просмотр">
+                     <font>
+                        <Font size="11.0" />
+                     </font></Button>
+               </children>
+            </VBox>
+            <BorderPane prefHeight="62.0" prefWidth="154.0" VBox.vgrow="NEVER">
+               <center>
+                  <Button mnemonicParsing="false" text="Выход" BorderPane.alignment="CENTER" />
+               </center>
+            </BorderPane>
+         </children>
+         <stylesheets>
+            <URL value="@Styles/menu.css" />
+            <URL value="@Styles/guide.css" />
+         </stylesheets>
+      </VBox>
+   </children>
+   <stylesheets>
+      <URL value="@Styles/menu.css" />
+      <URL value="@Styles/guide.css" />
+   </stylesheets>
+</HBox>
