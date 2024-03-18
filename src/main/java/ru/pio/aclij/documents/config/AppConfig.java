@@ -1,4 +1,4 @@
-package ru.pio.aclij.documents.financial.config;
+package ru.pio.aclij.documents.config;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,8 +9,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Database {
-    private String url;
-    private String username;
-    private String password;
+public class AppConfig {
+    private Datasource datasource;
+    private Files files;
 }

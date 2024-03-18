@@ -4,8 +4,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.pio.aclij.documents.financial.document.Document;
 
-@AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity
@@ -18,4 +18,8 @@ public class Product {
     private String name;
     private double quantity;
 
+    public Product(String name, double quantity) {
+        this.name = name;
+        this.quantity = quantity;
+    }
 }

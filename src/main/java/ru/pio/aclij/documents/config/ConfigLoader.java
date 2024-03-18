@@ -1,4 +1,4 @@
-package ru.pio.aclij.documents.financial.config;
+package ru.pio.aclij.documents.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
@@ -12,18 +12,14 @@ public class ConfigLoader {
     private AppConfig appConfig;
 
 
-    public static AppConfig loadConfig() throws IOException {
+    public static AppConfig loadConfig() {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         File file = new File(classLoader.getResource("config.yaml").getFile());
-
         ObjectMapper om = new ObjectMapper(new YAMLFactory());
-
-        AppConfig employee = om.readValue(file, AppConfig.class);
-
-        System.out.println("Employee info " + employee.toString());
-
-        System.out.println("Accessing first element: " + employee);
-
-        return employee;
+        try {
+            return om.readValue(file, AppConfig.class);
+        }catch (IOException e){
+            throw new AppConfigException("Failed to find resource", e);
+        }
     }
 }
