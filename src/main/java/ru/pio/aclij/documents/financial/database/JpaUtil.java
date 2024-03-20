@@ -4,8 +4,7 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.spi.PersistenceProvider;
 import org.hibernate.cfg.AvailableSettings;
 import org.hibernate.jpa.HibernatePersistenceProvider;
-import ru.pio.aclij.documents.config.ConfigLoader;
-import ru.pio.aclij.documents.config.Datasource;
+import ru.pio.aclij.documents.config.source.Datasource;
 
 import java.util.Properties;
 

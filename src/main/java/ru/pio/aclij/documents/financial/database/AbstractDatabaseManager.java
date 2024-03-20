@@ -6,7 +6,9 @@ import jakarta.persistence.Table;
 import jakarta.persistence.TypedQuery;
 import ru.pio.aclij.documents.financial.document.Document;
 
+import java.util.Currency;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public abstract class AbstractDatabaseManager<T> {
     public final EntityManagerFactory entityManagerFactory;
@@ -15,7 +17,7 @@ public abstract class AbstractDatabaseManager<T> {
         this.entityManagerFactory = entityManagerFactory;
     }
 
-    public String getTableName(Class<? extends T> clazz) {
+    private String getTableName(Class<? extends T> clazz) {
         Table table = clazz.getAnnotation(Table.class);
         return table != null ? table.name() : clazz.getSimpleName();
     }

@@ -1,4 +1,4 @@
-package ru.pio.aclij.documents.config;
+package ru.pio.aclij.documents.config.source;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

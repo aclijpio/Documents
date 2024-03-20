@@ -5,6 +5,8 @@ services:
       POSTGRES_DB: taskMaster
       POSTGRES_PASSWORD: postgres
       POSTGRES_USER: postgres
+    volumes:
+      - ./data/schema.sql:/docker-entrypoint-initdb.d/schema.sql
     ports:
       - 5434:5432
     healthcheck:

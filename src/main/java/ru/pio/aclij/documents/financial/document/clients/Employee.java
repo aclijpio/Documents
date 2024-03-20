@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @Table(name = "employees")
-public class Employee {
+public class Employee implements Client{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -27,4 +27,6 @@ module ru.pio.aclij.documents {
     opens ru.pio.aclij.documents.config to javafx.fxml;
     exports ru.pio.aclij.documents.controllers;
     opens ru.pio.aclij.documents.controllers to javafx.fxml;
+    exports ru.pio.aclij.documents.config.source;
+    opens ru.pio.aclij.documents.config.source to javafx.fxml, com.fasterxml.jackson.databind;
 }

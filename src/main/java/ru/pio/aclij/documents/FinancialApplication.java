@@ -7,13 +7,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
-import ru.pio.aclij.documents.config.AppConfig;
+import ru.pio.aclij.documents.config.source.AppConfig;
 import ru.pio.aclij.documents.config.ConfigLoader;
 import ru.pio.aclij.documents.controllers.DocumentController;
+import ru.pio.aclij.documents.controllers.DocumentLoader;
 import ru.pio.aclij.documents.controllers.FinancialMenuController;
+import ru.pio.aclij.documents.financial.customcontrols.financialControls.DocumentHelper;
 import ru.pio.aclij.documents.financial.database.FinancialDatabaseManager;
 import ru.pio.aclij.documents.financial.database.JpaUtil;
-import ru.pio.aclij.documents.financial.document.Document;
 import ru.pio.aclij.documents.financial.document.Invoice;
 import ru.pio.aclij.documents.financial.document.Payment;
 import ru.pio.aclij.documents.financial.document.clients.Employee;
@@ -24,7 +25,7 @@ import ru.pio.aclij.documents.financial.document.money.Product;
 
 import java.time.Clock;
 import java.time.LocalDate;
-import java.util.stream.Collectors;
+import java.util.List;
 
 public class FinancialApplication extends Application{
 
@@ -39,38 +40,27 @@ public class FinancialApplication extends Application{
 
 
 
-        Invoice invoice = new Invoice(
-                "1",
-                LocalDate.now(Clock.systemDefaultZone()),
-                new User("user"),
-                12.1,
-                new Currency(CurrencyCode.RUB, 45.12),
-                new Product("Milk", 12)
-        );
-        Payment payment = new Payment(
-                "2",
-                LocalDate.now(Clock.systemDefaultZone()),
-                new User("user2"),
-                12.21,
-                new Employee("employee")
-        );
+
         FinancialDatabaseManager databaseManager = new FinancialDatabaseManager(entityManagerFactory);
-        databaseManager.save(payment);
-        databaseManager.save(invoice);
-        System.out.println(
-                databaseManager.findById(Invoice.class, 1L)
-        );
-        System.out.println(
-                databaseManager.findAll()
-                        .stream()
-                        .map(Document::toString)
-                        .collect(Collectors.joining(", "))
-        );
+
         FXMLLoader fxmlLoader = new FXMLLoader(FinancialApplication.class.getResource(appConfig.getFiles().getMenu()));
         FXMLLoader entityFxmlLoader = new FXMLLoader(FinancialApplication.class.getResource(appConfig.getFiles().getEntity()));
 
-        fxmlLoader.setController(new FinancialMenuController(stage, entityFxmlLoader,databaseManager));
-        entityFxmlLoader.setController(new DocumentController(databaseManager));
+
+        DocumentController documentController = new DocumentController(databaseManager, appConfig.getFinancial());
+
+        DocumentLoader documentLoader = new DocumentLoader(documentController.createHelper(), entityFxmlLoader, stage);
+
+        
+                
+        entityFxmlLoader.setController(documentController);
+
+
+        fxmlLoader.setController(new FinancialMenuController(databaseManager, documentLoader));
+
+
+
+
 
         Scene scene = new Scene(fxmlLoader.load());
 
@@ -78,14 +68,6 @@ public class FinancialApplication extends Application{
         stage.setTitle("Financial");
         stage.setScene(scene);
         stage.show();
-/*
-        System.out.println(databaseManager.findAll().stream()
-                .map(Document::getId)
-                        .map(String::valueOf)
-                .collect(Collectors.joining(", ")));
-
-*/
-
 
     }
     public static void main(String[] args) {

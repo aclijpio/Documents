@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @Table(name = "counterparties")
-public class Counterparty {
+public class Counterparty implements Client{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

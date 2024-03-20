@@ -1,4 +1,4 @@
-package ru.pio.aclij.documents.config;
+package ru.pio.aclij.documents.config.source;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,4 +12,5 @@ import lombok.ToString;
 public class AppConfig {
     private Datasource datasource;
     private Files files;
+    private FinancialConfig financial;
 }

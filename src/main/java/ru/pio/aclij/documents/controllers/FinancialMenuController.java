@@ -3,12 +3,13 @@ package ru.pio.aclij.documents.controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import ru.pio.aclij.documents.config.source.FinancialConfig;
 import ru.pio.aclij.documents.financial.customcontrols.entityScene.DocumentScene;
+import ru.pio.aclij.documents.financial.customcontrols.financialControls.DocumentHelper;
 import ru.pio.aclij.documents.financial.database.FinancialDatabaseManager;
 import ru.pio.aclij.documents.financial.document.Invoice;
 import ru.pio.aclij.documents.services.FinancialMenuService;
@@ -19,21 +20,20 @@ import java.util.ResourceBundle;
 public class
 FinancialMenuController implements Initializable {
     private final FinancialDatabaseManager databaseManager;
-
     private final FinancialMenuService service;
-    private final Stage stage;
-    private final FXMLLoader fxmlLoader;
+    private final DocumentLoader documentLoader;
+
     @FXML
     private ListView<String> documentList;
     @FXML
     private Button invoiceButton;
 
     private VBox form;
-    public FinancialMenuController(Stage stage, FXMLLoader fxmlLoader, FinancialDatabaseManager databaseManager) {
+    public FinancialMenuController(FinancialDatabaseManager databaseManager, DocumentLoader documentLoader) {
         this.databaseManager = databaseManager;
-        this.stage = stage;
-        this.fxmlLoader = fxmlLoader;
-        service = new FinancialMenuService(databaseManager);
+        this.documentLoader = documentLoader;
+
+        service = new FinancialMenuService(databaseManager, documentLoader);
     }
 
     @Override
@@ -45,7 +45,7 @@ FinancialMenuController implements Initializable {
     }
     @FXML
     public void showInvoiceForm() {
-        DocumentScene scene = service.createSceneByDocument(new Invoice(), fxmlLoader);
-        scene.show(stage);
+        DocumentScene scene = service.createSceneByDocument(new Invoice());
+        scene.show(documentLoader.getStage());
     }
 }

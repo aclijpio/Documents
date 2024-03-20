@@ -1,21 +1,26 @@
 package ru.pio.aclij.documents.financial.document.clients;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+@Setter
 @NoArgsConstructor
-@Data
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements Client{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Getter
     private Long id;
+
     private String username;
 
     public User(String username) {
         this.username = username;
+    }
+
+    @Override
+    public String getName() {
+        return this.username;
     }
 }
