@@ -24,12 +24,12 @@ public class DocumentLoader {
         this.files = files;
     }
 
-    public DocumentScene loadByDocument(Document document){
+    public DocumentScene loadByDocument(Document document, Stage stage){
         try {
 
             FXMLLoader loader = new FXMLLoader(FinancialApplication.class.getResource(files.getEntity()));
 
-            DocumentController controller = new DocumentController(helper, document);
+            DocumentController controller = new DocumentController(helper, document, stage);
             loader.setController(controller);
             DocumentScene scene = new DocumentScene(loader);
             return scene;

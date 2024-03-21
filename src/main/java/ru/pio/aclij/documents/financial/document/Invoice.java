@@ -24,11 +24,11 @@ import java.util.Optional;
 @Entity
 public class Invoice extends Document {
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne()
     @JoinColumn(name = "currency_id", nullable = false)
     private Currency currency;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne()
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
@@ -54,7 +54,7 @@ public class Invoice extends Document {
 
 
         nodeRegistry.createHBoxTrees(
-                helper.getCurrencyCodeComboBox(
+                helper.findCurrencyCodeComboBox(
                         this.getCurrency().getCurrencyCode(),
                         rateTextField),
                 labelTree -> labelTree
@@ -65,13 +65,17 @@ public class Invoice extends Document {
                 labelTree -> labelTree
                         .createLabelWithBox("Курс валюты: ")
         );
-        helper.getStringComboBox(
-                Product.class,
-                new TextField(this.getProduct() == null ? "" : this.getProduct().getName())
+        nodeRegistry.add(
+                helper.createStringComboBox(
+                        Product.class,
+                        new TextField(this.getProduct() == null ? "" : this.getProduct().getName()),
+                        "Товар: "
+                )
         );
 
+
         nodeRegistry.createHBoxTrees(
-                helper.getValidationTextField(
+                helper.createValidationTextField(
                         input -> applyMatcher(input, PATTERN_FOR_DOUBLE),
                         FinancialControlsFactory.createAlertWrapper("Сумма введена неправильно", "Поле суммы должно иметь вид 213131 / 211.2112")),
                 labelTree -> labelTree
@@ -84,23 +88,30 @@ public class Invoice extends Document {
     @Override
     public Document fromNodeTree(ParentDocumentHelper helper, NodeRegistry nodeRegistry) {
 
+        nodeRegistry.clear();
+
         super.fromNodeTree(helper, nodeRegistry);
 
-        CurrencyCode stringCurrency = (CurrencyCode) nodeRegistry.getIdNode(ComboBox.class).getSelectionModel().getSelectedItem();
+        CurrencyCode stringCurrency = (CurrencyCode) nodeRegistry.getNode(ComboBox.class).getSelectionModel().getSelectedItem();
+
         Optional<Currency> currency = helper.getHelper().getDatabaseManager().findCurrencyByCurrencyCode(stringCurrency);
         if (currency.isEmpty())
             throw new NodeUnavailableException("Currency not found");
         this.currency = currency.get();
-        String productName = (String) nodeRegistry.getIdNode(ComboBox.class).getSelectionModel().getSelectedItem();
+
+        String productName =  nodeRegistry.getNode(TextField.class).getText();
         Optional<Product> product = helper.getHelper().getDatabaseManager().findByName(Product.class, productName);
+        nodeRegistry.skip();
+        long quantity = Long.parseLong(nodeRegistry.getNode(TextField.class).getText());
 
-        long quantity = Long.parseLong(nodeRegistry.getIdNode(TextField.class).getText());
-
-        if (product.isEmpty())
+        if (product.isEmpty()) {
             this.product = new Product(productName, quantity);
-        this.currency = currency.get();
-        
-        return super.fromNodeTree(helper, nodeRegistry);
+            helper.getHelper().getDatabaseManager().save(this.product);
+        }
+        else {
+            this.product = product.get();
+        }
 
+        return this;
     }
 }

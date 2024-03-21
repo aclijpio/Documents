@@ -5,30 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fd28413e-d9d3-4b89-9041-f86b94933c7a" name="Changes" comment="controls">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/47762cbf-ee35-4e09-86a6-c2db43a9c902.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/47762cbf-ee35-4e09-86a6-c2db43a9c902.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/data/schema.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/FinancialApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/FinancialApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/controllers/DocumentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/controllers/DocumentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/controllers/DocumentLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/controllers/helpers/DocumentLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/controllers/FinancialMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/controllers/FinancialMenuController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/customcontrols/entityScene/DocumentScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/customcontrols/entityScene/DocumentScene.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/customcontrols/entityScene/ParentDocument.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/customcontrols/entityScene/ParentDocument.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/customcontrols/financialControls/CurrencyCodeComboBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/customcontrols/financialControls/CurrencyCodeComboBox.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/customcontrols/financialControls/DocumentHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/controllers/helpers/DocumentHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/customcontrols/financialControls/FinancialControls.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/customcontrols/financialControls/FinancialControlsFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/customcontrols/financialControls/LabelledControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/customcontrols/financialControls/LabelledControl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/database/AbstractDatabaseManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/database/AbstractDatabaseManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/database/FinancialDatabaseManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/database/FinancialDatabaseManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/controllers/helpers/DocumentLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/controllers/helpers/DocumentLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/controllers/helpers/ParentDocumentHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/controllers/helpers/ParentDocumentHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/customcontrols/financialControls/FinancialControlsFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/customcontrols/financialControls/FinancialControlsFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/customcontrols/financialControls/LabelledControl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/customcontrols/financialControls/ValidatingTextField.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/customcontrols/financialControls/ValidatingTextField.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/customcontrols/financialControls/ValidationBarInputControl.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/document/Document.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/document/Document.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/document/Invoice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/document/Invoice.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/document/Payment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/document/Payment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/document/PaymentRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/document/PaymentRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/document/clients/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/document/clients/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/document/clients/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/document/clients/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/document/money/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/document/money/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/services/DocumentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/services/DocumentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/noderegistry/LabelTree.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/noderegistry/LabelTree.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/noderegistry/NodeRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/noderegistry/NodeRegistry.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/services/FinancialMenuService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/services/FinancialMenuService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/ru/pio/aclij/documents/entity.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ru/pio/aclij/documents/entity.fxml" afterDir="false" />
     </list>
@@ -174,7 +162,7 @@
       <workItem from="1710857881225" duration="17174000" />
       <workItem from="1710916930738" duration="3979000" />
       <workItem from="1710944999308" duration="15319000" />
-      <workItem from="1711004098061" duration="26247000" />
+      <workItem from="1711004098061" duration="40611000" />
     </task>
     <task id="LOCAL-00001" summary="document bd">
       <option name="closed" value="true" />
@@ -208,7 +196,15 @@
       <option name="project" value="LOCAL" />
       <updated>1710954278712</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="controls">
+      <option name="closed" value="true" />
+      <created>1711037561509</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1711037561509</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

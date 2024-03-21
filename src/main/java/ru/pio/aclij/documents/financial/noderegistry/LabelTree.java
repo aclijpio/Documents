@@ -28,6 +28,14 @@ public class LabelTree {
                 )
         );
     }
+    public LabelTree toFront(){
+        this.hBox.toFront();
+        return this;
+    }
+    public LabelTree toBack(){
+        this.hBox.toBack();
+        return this;
+    }
     public void empty(){}
 
     public HBox getHBox() {

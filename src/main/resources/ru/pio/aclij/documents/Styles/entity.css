@@ -5,7 +5,7 @@
     -fx-spacing: 20;
 }
 .main_container {
-    -fx-padding: 0 50 0 50;
+    -fx-padding: 60 50 0 50;
     -fx-background-color: #c7c7c7;
 }
 .bottom_bar {

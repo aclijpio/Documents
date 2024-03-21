@@ -31,12 +31,12 @@ public class FinancialMenuService {
         );
     }
 
-    public DocumentScene createSceneByDocument(Document document){
-        return loader.loadByDocument(document);
+    public DocumentScene createSceneByDocument(Document document, Stage stage){
+        return loader.loadByDocument(document, stage);
     }
     public DocumentScene createSceneByDocumentAndShow(Document document){
-        DocumentScene scene = createSceneByDocument(document);
         Stage stage = new Stage();
+        DocumentScene scene = createSceneByDocument(document, stage);
         scene.show(stage);
         return scene;
     }

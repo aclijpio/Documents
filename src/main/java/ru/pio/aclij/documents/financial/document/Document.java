@@ -5,6 +5,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import lombok.*;
 import ru.pio.aclij.documents.controllers.helpers.ParentDocumentHelper;
+import ru.pio.aclij.documents.financial.noderegistry.LabelTree;
 import ru.pio.aclij.documents.financial.noderegistry.NodeRegistry;
 import ru.pio.aclij.documents.financial.customcontrols.financialControls.FinancialControlsFactory;
 import ru.pio.aclij.documents.financial.customcontrols.entityScene.ParentDocument;
@@ -20,8 +21,8 @@ import java.util.regex.Pattern;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Document implements ParentDocument {
 
-    public static final Pattern PATTERN_FOR_NUMBER = Pattern.compile("^\\w\\d$");
-    public static final Pattern PATTERN_FOR_DOUBLE = Pattern.compile("^\\d+(?:\\.\\d)?#");
+    public static final Pattern PATTERN_FOR_NUMBER = Pattern.compile("^\\w\\d+$");
+    public static final Pattern PATTERN_FOR_DOUBLE = Pattern.compile("^\\d+(?:\\.\\d+)?$");
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -32,7 +33,7 @@ public abstract class Document implements ParentDocument {
 
     private LocalDate date;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne()
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
@@ -52,17 +53,14 @@ public abstract class Document implements ParentDocument {
         NodeRegistry nodeRegistry = new NodeRegistry();
 
         if (this.getId() != null) {
-            nodeRegistry.createHBoxTrees(
-                    FinancialControlsFactory.createUneditableTextField(String.valueOf(this.getId())),
-                    labelTree -> labelTree
-                            .createLabelWithBox("ID: ")
-            );
+            LabelTree labelTree = helper.createInNode(this.getId());
+            nodeRegistry.setIdNode(labelTree.getNode());
         }
         nodeRegistry.createHBoxTrees(
-                helper.getValidationTextField(
+                helper.createValidationTextField(
                         input -> applyMatcher(input, PATTERN_FOR_NUMBER),
                         FinancialControlsFactory
-                                .createAlertWrapper("Номер введен направильно", "Номер состоят из Буквы и Цифр (K102).")),
+                                .createAlertWrapper("Номер введен неправильно", "Номер должен состоят из Буквы и Цифр (K102).")),
                 labelTree -> labelTree
                         .createLabelWithBox("Номер: ")
         );
@@ -71,14 +69,16 @@ public abstract class Document implements ParentDocument {
                 labelTree -> labelTree
                         .createLabelWithBox("Дата: ")
         );
+
         nodeRegistry.add(
-                helper.getStringComboBox(
+                helper.createStringComboBox(
                         User.class,
-                        new TextField(this.getUser() == null ? "" : this.getUser().getName())
+                        new TextField(this.getUser() == null ? "" : this.getUser().getName()),
+                        "Пользователь:"
                         )
         );
         nodeRegistry.createHBoxTrees(
-                helper.getValidationTextField(
+                helper.createValidationTextField(
                         input -> applyMatcher(input, PATTERN_FOR_DOUBLE),
                         FinancialControlsFactory.createAlertWrapper("Сумма введена неправильно", "Поле суммы должно иметь вид 213131 / 211.2112")),
                 labelTree -> labelTree.createLabelWithBox("Сумма: ")
@@ -91,12 +91,18 @@ public abstract class Document implements ParentDocument {
 
     @Override
     public Document fromNodeTree(ParentDocumentHelper helper, NodeRegistry nodeRegistry) {
-        this.number = nodeRegistry.getIdNode(TextField.class).getText();
-        this.date = nodeRegistry.getIdNode(DatePicker.class).getValue();
-        String username = nodeRegistry.getIdNode(TextField.class).getText();
+        this.number = nodeRegistry.getNode(TextField.class).getText();
+        this.date = nodeRegistry.getNode(DatePicker.class).getValue();
+        String username = nodeRegistry.getNode(TextField.class).getText();
         Optional<User> user = helper.getHelper().getDatabaseManager().findByName(User.class, username);
-        this.user = user.orElseGet(() -> new User(username));
-        this.amountOfMoney = Long.parseLong(nodeRegistry.getIdNode(TextField.class).getText());
+
+        if (user.isEmpty()){
+            this.user = new User(username);
+            helper.getHelper().getDatabaseManager().save(this.user);
+        } else {
+            this.user = user.get();
+        }
+        this.amountOfMoney = Long.parseLong(nodeRegistry.getNode(TextField.class).getText());
         return this;
     }
 

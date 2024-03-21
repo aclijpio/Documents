@@ -4,6 +4,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import ru.pio.aclij.documents.controllers.DocumentController;
 import ru.pio.aclij.documents.financial.database.FinancialDatabaseManager;
 import ru.pio.aclij.documents.financial.document.money.CurrencyCode;
 
@@ -26,8 +27,11 @@ public class FinancialControlsFactory {
     public static ComboBox<CurrencyCode> createCurrencyCodeComboBox(FinancialDatabaseManager databaseManager, CurrencyCode code, TextField rateTextField){
         return new CurrencyCodeComboBox(databaseManager, code, rateTextField);
     }
-    public static ValidatingTextField createValidationTextField(Predicate<String> validation, Button button, AlertWrapper alertWrapper){
-        return new ValidatingTextField(validation, button, alertWrapper);
+    public static ValidatingTextField createValidationTextField(Predicate<String> validation, DocumentController controller, AlertWrapper alertWrapper){
+        ValidatingTextField validatingTextField = new ValidatingTextField(validation, alertWrapper);
+        controller.getSave().add(validatingTextField);
+        controller.getUpdate().add(validatingTextField);
+        return validatingTextField;
     }
     public static DatePicker createCurrentDatePicker(){
         DatePicker datePicker = new DatePicker();

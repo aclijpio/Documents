@@ -2,14 +2,19 @@ package ru.pio.aclij.documents.financial.noderegistry;
 
 import javafx.scene.Node;
 import javafx.scene.layout.HBox;
+import lombok.Setter;
 import ru.pio.aclij.documents.financial.noderegistry.exceptions.NodeUnavailableException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public class NodeRegistry{
+
+    @Setter
+    Node idNode;
 
     List<LabelTree> hBoxTrees = new ArrayList<>();
     private int counter = 0;
@@ -22,7 +27,7 @@ public class NodeRegistry{
         return boxTree;
     }
 
-    public <T> T getIdNode(Class<T> clazz) {
+    public <T> T getNode(Class<T> clazz) {
         try {
             return clazz.cast(this.hBoxTrees.get(counter++).getNode());
         }catch (IndexOutOfBoundsException e){
@@ -32,11 +37,19 @@ public class NodeRegistry{
     public void add(LabelTree labelTree){
         this.hBoxTrees.add(labelTree);
     }
-
-    public List<Node> getNode(){
+    public void skip(){
+        this.counter++;
+    }
+    public List<Node> getNodes(){
         return hBoxTrees.stream()
                 .map(LabelTree::getHBox)
                 .collect(Collectors.toList());
     }
 
+    public Optional<Node> getIdNode(){
+        return Optional.ofNullable(this.idNode);
+    }
+    public void clear(){
+        this.counter = 0;
+    }
 }
