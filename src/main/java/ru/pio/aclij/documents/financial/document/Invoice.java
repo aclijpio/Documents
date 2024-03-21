@@ -1,23 +1,21 @@
 package ru.pio.aclij.documents.financial.document;
 
 import jakarta.persistence.*;
-import javafx.collections.ObservableList;
-import javafx.scene.Parent;
-import javafx.scene.control.Label;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import lombok.*;
-import ru.pio.aclij.documents.financial.customcontrols.financialControls.DocumentHelper;
-import ru.pio.aclij.documents.financial.customcontrols.financialControls.FinancialControls;
-import ru.pio.aclij.documents.financial.customcontrols.financialControls.LabelledControl;
-import ru.pio.aclij.documents.financial.customcontrols.financialControls.ValidationBarInputControl;
+import ru.pio.aclij.documents.controllers.exceptions.CurrencyDefaultNotSetException;
+import ru.pio.aclij.documents.controllers.helpers.ParentDocumentHelper;
+import ru.pio.aclij.documents.financial.document.money.CurrencyCode;
+import ru.pio.aclij.documents.financial.noderegistry.NodeRegistry;
+import ru.pio.aclij.documents.financial.customcontrols.financialControls.FinancialControlsFactory;
 import ru.pio.aclij.documents.financial.document.clients.User;
 import ru.pio.aclij.documents.financial.document.money.Currency;
-import ru.pio.aclij.documents.financial.document.money.CurrencyCode;
 import ru.pio.aclij.documents.financial.document.money.Product;
+import ru.pio.aclij.documents.financial.noderegistry.exceptions.NodeUnavailableException;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
 
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
@@ -25,7 +23,6 @@ import java.util.List;
 @Setter
 @Entity
 public class Invoice extends Document {
-
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "currency_id", nullable = false)
@@ -42,39 +39,68 @@ public class Invoice extends Document {
     }
 
     @Override
-    public ObservableList<Parent> toParent(DocumentHelper factory) {
-
-        List<LabelledControl> labelledControls = new ArrayList<>();
-        System.out.println(factory.getDatabaseManager().findCurrencyByCurrencyCode(factory.getConfig().getDefaultCurrency()));
-        if (this.getCurrency() == null)
-            this.setCurrency(factory.getDatabaseManager().findCurrencyByCurrencyCode(factory.getConfig().getDefaultCurrency()));
-
-        TextField rateTextField = FinancialControls.createUneditableTextField(String.valueOf(this.getCurrency().getRate()));
+    public NodeRegistry toNodeTree(ParentDocumentHelper helper) {
 
 
-        labelledControls.add(new LabelledControl(
-                "Currency",
-                        new Label("Валюта: "),
-                        factory.getCurrencyCodeComboBox(
-                                this.getCurrency().getCurrencyCode(),
-                                rateTextField))
+        NodeRegistry nodeRegistry = super.toNodeTree(helper);
+
+        if (this.getCurrency() == null) {
+            Optional<Currency> currentCurrency = helper.getDefaultCurrencyByCurrencyCode();
+
+            this.setCurrency(currentCurrency.orElseThrow(CurrencyDefaultNotSetException::new));
+        }
+
+        TextField rateTextField = FinancialControlsFactory.createUneditableTextField(String.valueOf(this.getCurrency().getRate()));
+
+
+        nodeRegistry.createHBoxTrees(
+                helper.getCurrencyCodeComboBox(
+                        this.getCurrency().getCurrencyCode(),
+                        rateTextField),
+                labelTree -> labelTree
+                        .createLabelWithBox("Валюта: ")
         );
-        labelledControls.add(new LabelledControl(
-                "Product",
-                new Label("Курс валюты: "),
-                rateTextField)
+        nodeRegistry.createHBoxTrees(
+                rateTextField,
+                labelTree -> labelTree
+                        .createLabelWithBox("Курс валюты: ")
         );
-/*        labelledControls.add(
-                new LabelledControl(
-                        new Label(String.valueOf(this.getProduct().getId())),
-                        new LabelledControl(
-                                factory.getValidationTextField(i -> i.)
-                        )
-                )
-        )*/
+        helper.getStringComboBox(
+                Product.class,
+                new TextField(this.getProduct() == null ? "" : this.getProduct().getName())
+        );
 
-        ObservableList<Parent> superList = super.toParent(factory);
-        superList.addAll(ValidationBarInputControl.getControls(labelledControls));
-        return superList;
+        nodeRegistry.createHBoxTrees(
+                helper.getValidationTextField(
+                        input -> applyMatcher(input, PATTERN_FOR_DOUBLE),
+                        FinancialControlsFactory.createAlertWrapper("Сумма введена неправильно", "Поле суммы должно иметь вид 213131 / 211.2112")),
+                labelTree -> labelTree
+                        .createLabelWithBox("Количество товаров: ")
+        );
+
+        return nodeRegistry;
+    }
+
+    @Override
+    public Document fromNodeTree(ParentDocumentHelper helper, NodeRegistry nodeRegistry) {
+
+        super.fromNodeTree(helper, nodeRegistry);
+
+        CurrencyCode stringCurrency = (CurrencyCode) nodeRegistry.getIdNode(ComboBox.class).getSelectionModel().getSelectedItem();
+        Optional<Currency> currency = helper.getHelper().getDatabaseManager().findCurrencyByCurrencyCode(stringCurrency);
+        if (currency.isEmpty())
+            throw new NodeUnavailableException("Currency not found");
+        this.currency = currency.get();
+        String productName = (String) nodeRegistry.getIdNode(ComboBox.class).getSelectionModel().getSelectedItem();
+        Optional<Product> product = helper.getHelper().getDatabaseManager().findByName(Product.class, productName);
+
+        long quantity = Long.parseLong(nodeRegistry.getIdNode(TextField.class).getText());
+
+        if (product.isEmpty())
+            this.product = new Product(productName, quantity);
+        this.currency = currency.get();
+        
+        return super.fromNodeTree(helper, nodeRegistry);
+
     }
 }

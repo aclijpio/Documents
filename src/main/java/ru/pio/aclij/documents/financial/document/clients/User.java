@@ -13,14 +13,14 @@ public class User implements Client{
     @Getter
     private Long id;
 
-    private String username;
+    private String name;
 
-    public User(String username) {
-        this.username = username;
+    public User(String name) {
+        this.name = name;
     }
 
     @Override
     public String getName() {
-        return this.username;
+        return this.name;
     }
 }

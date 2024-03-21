@@ -1,17 +1,21 @@
 package ru.pio.aclij.documents.financial.database;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Query;
-import jakarta.persistence.TypedQuery;
+import jakarta.persistence.*;
 import ru.pio.aclij.documents.financial.document.Document;
+import ru.pio.aclij.documents.financial.document.Payment;
+import ru.pio.aclij.documents.financial.document.PaymentRequest;
+import ru.pio.aclij.documents.financial.document.clients.Counterparty;
+import ru.pio.aclij.documents.financial.document.clients.Employee;
 import ru.pio.aclij.documents.financial.document.clients.User;
 import ru.pio.aclij.documents.financial.document.money.Currency;
 import ru.pio.aclij.documents.financial.document.money.CurrencyCode;
+import ru.pio.aclij.documents.financial.document.money.Product;
 
 import java.util.List;
+import java.util.Optional;
 
-public class FinancialDatabaseManager extends AbstractDatabaseManager<Document> {
+
+public class FinancialDatabaseManager extends AbstractDatabaseManager {
     public FinancialDatabaseManager(EntityManagerFactory entityManagerFactory) {
         super(entityManagerFactory);
     }
@@ -36,33 +40,18 @@ public class FinancialDatabaseManager extends AbstractDatabaseManager<Document> 
         entityManager.close();
     }
 
-    public Currency findCurrencyByCurrencyCode(CurrencyCode code){
-        EntityManager entityManager = this.entityManagerFactory.createEntityManager();
-        Query query = entityManager.createQuery(
-                "SELECT c FROM Currency c WHERE c.currencyCode = :currencyCodeValue"
-        );
-        query.setParameter("currencyCodeValue", code);
-        Currency currency = (Currency) query.getSingleResult();
-        query.getSingleResult();
-        return currency;
-    }
-    public List<User> findAllUsers(){
-        EntityManager entityManager = this.entityManagerFactory.createEntityManager();
-        TypedQuery<User> query = entityManager.createQuery(
-                "SELECT u FROM User u",
-                User.class
-        );
-        List<User> users = query.getResultList();
-        entityManager.close();
-        return users;
-    }
-    public <T> User findUserByUsername(String username){
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
+    public Optional<Currency> findCurrencyByCurrencyCode(CurrencyCode code){
+        try(EntityManager entityManager = this.entityManagerFactory.createEntityManager()) {
+            Query query = entityManager.createQuery(
+                    "SELECT c FROM Currency c WHERE c.currencyCode = :currencyCodeValue"
+            );
+            query.setParameter("currencyCodeValue", code);
+            Currency currency = (Currency) query.getSingleResult();
+            query.getSingleResult();
+            return Optional.of(currency);
+        }catch (NoResultException e){
+            return Optional.empty();
+        }
 
-        Query query = entityManager.createQuery(
-                "SELECT u FROM User u WHERE u.username = :username"
-        );
-        query.setParameter("username", username);
-        return (User) query.getSingleResult();
     }
 }

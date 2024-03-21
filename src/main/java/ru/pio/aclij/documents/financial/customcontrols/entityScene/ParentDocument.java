@@ -1,12 +1,12 @@
 package ru.pio.aclij.documents.financial.customcontrols.entityScene;
 
-import javafx.collections.ObservableList;
-import javafx.scene.Parent;
-import ru.pio.aclij.documents.financial.customcontrols.financialControls.DocumentHelper;
+import ru.pio.aclij.documents.controllers.helpers.ParentDocumentHelper;
 import ru.pio.aclij.documents.financial.document.Document;
+import ru.pio.aclij.documents.financial.noderegistry.NodeRegistry;
 
 public interface ParentDocument {
 
-    ObservableList<Parent> toParent(DocumentHelper factory);
-    Document fromParent(Parent parent);
+    NodeRegistry toNodeTree(ParentDocumentHelper factory);
+
+    Document fromNodeTree(ParentDocumentHelper helper, NodeRegistry nodeRegistry);
 }

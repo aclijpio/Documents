@@ -6,6 +6,8 @@ import ru.pio.aclij.documents.financial.database.FinancialDatabaseManager;
 import ru.pio.aclij.documents.financial.document.money.Currency;
 import ru.pio.aclij.documents.financial.document.money.CurrencyCode;
 
+import java.util.Optional;
+
 public class CurrencyCodeComboBox extends ComboBox<CurrencyCode> {
 
     public CurrencyCodeComboBox(FinancialDatabaseManager databaseManager, CurrencyCode code, TextField rateTextField) {
@@ -21,9 +23,8 @@ public class CurrencyCodeComboBox extends ComboBox<CurrencyCode> {
 
         this.setOnAction(e -> {
             CurrencyCode currentCode = this.getSelectionModel().getSelectedItem();
-            Currency currency = databaseManager.findCurrencyByCurrencyCode(currentCode);
-            rateTextField.setText(String.valueOf(currency.getRate()));
-            System.out.println(rateTextField.getText());
+            Optional<Currency> currency = databaseManager.findCurrencyByCurrencyCode(currentCode);
+            currency.ifPresent(value -> rateTextField.setText(String.valueOf(value.getRate())));
         });
     }
 }

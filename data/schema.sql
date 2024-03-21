@@ -34,7 +34,7 @@ create table if not exists products (
 -- Создание таблицы "users"
 create table if not exists users (
                                      id bigserial,
-                                     username varchar(255),
+                                     name varchar(255),
                                      primary key (id)
 );
 
@@ -84,7 +84,7 @@ create table if not exists payments (
                                         constraint fkgg9970yjb56tmui83b0dccqv5 foreign key (employee_id) references employees,
                                         constraint fk_hhlmueh5j2c0pjahrb4mrgw7a foreign key (user_id) references users
 );
-insert into users (username) values ('Maxim'),
+insert into users (name) values ('Maxim'),
                                     ('Oleg'),
                                     ('Egor'),
                                     ('Masha'),

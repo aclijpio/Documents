@@ -12,8 +12,9 @@
             <VBox fx:id="form" prefHeight="323.0" prefWidth="600.0" styleClass="entity_container" stylesheets="@Styles/entity.css" />
             <HBox prefHeight="100.0" prefWidth="200.0" styleClass="bottom_bar" stylesheets="@Styles/entity.css">
                <children>
-                  <Button fx:id="persist" mnemonicParsing="false" text="Сохранить" />
-                  <Button mnemonicParsing="false" text="Удалить" />
+                  <Button fx:id="update" mnemonicParsing="false" onAction="#update" text="Button" />
+                  <Button fx:id="persist" mnemonicParsing="false" onAction="#save" text="Сохранить" />
+                  <Button mnemonicParsing="false" onAction="#delete" text="Удалить" />
                </children>
             </HBox>
          </children>

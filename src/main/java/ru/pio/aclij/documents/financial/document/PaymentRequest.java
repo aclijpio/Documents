@@ -16,7 +16,7 @@ import java.time.LocalDate;
 @Setter
 @Entity
 @Table(name = "payment_requests")
-public class PaymentRequest extends Document implements ParentDocument {
+public class PaymentRequest extends Document {
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "counterparty_id", nullable = false)

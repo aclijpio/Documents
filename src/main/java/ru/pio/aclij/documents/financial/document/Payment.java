@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @Setter
 @Entity
 @Table(name = "payments")
-public class Payment extends Document implements ParentDocument {
+public class Payment extends Document {
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "employee_id", nullable = false)
     private Employee employee;
@@ -24,6 +24,7 @@ public class Payment extends Document implements ParentDocument {
         super(number, date, user, amountOfMoney);
         this.employee = employee;
     }
+
 
 
 }

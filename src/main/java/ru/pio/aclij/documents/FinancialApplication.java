@@ -9,23 +9,11 @@ import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import ru.pio.aclij.documents.config.source.AppConfig;
 import ru.pio.aclij.documents.config.ConfigLoader;
-import ru.pio.aclij.documents.controllers.DocumentController;
-import ru.pio.aclij.documents.controllers.DocumentLoader;
+import ru.pio.aclij.documents.controllers.helpers.DocumentLoader;
 import ru.pio.aclij.documents.controllers.FinancialMenuController;
-import ru.pio.aclij.documents.financial.customcontrols.financialControls.DocumentHelper;
+import ru.pio.aclij.documents.controllers.helpers.DocumentHelper;
 import ru.pio.aclij.documents.financial.database.FinancialDatabaseManager;
 import ru.pio.aclij.documents.financial.database.JpaUtil;
-import ru.pio.aclij.documents.financial.document.Invoice;
-import ru.pio.aclij.documents.financial.document.Payment;
-import ru.pio.aclij.documents.financial.document.clients.Employee;
-import ru.pio.aclij.documents.financial.document.clients.User;
-import ru.pio.aclij.documents.financial.document.money.Currency;
-import ru.pio.aclij.documents.financial.document.money.CurrencyCode;
-import ru.pio.aclij.documents.financial.document.money.Product;
-
-import java.time.Clock;
-import java.time.LocalDate;
-import java.util.List;
 
 public class FinancialApplication extends Application{
 
@@ -44,16 +32,13 @@ public class FinancialApplication extends Application{
         FinancialDatabaseManager databaseManager = new FinancialDatabaseManager(entityManagerFactory);
 
         FXMLLoader fxmlLoader = new FXMLLoader(FinancialApplication.class.getResource(appConfig.getFiles().getMenu()));
-        FXMLLoader entityFxmlLoader = new FXMLLoader(FinancialApplication.class.getResource(appConfig.getFiles().getEntity()));
 
 
-        DocumentController documentController = new DocumentController(databaseManager, appConfig.getFinancial());
-
-        DocumentLoader documentLoader = new DocumentLoader(documentController.createHelper(), entityFxmlLoader, stage);
+        DocumentLoader documentLoader = new DocumentLoader(new DocumentHelper(databaseManager, appConfig.getFinancial()), appConfig.getFiles());
 
         
                 
-        entityFxmlLoader.setController(documentController);
+        ;
 
 
         fxmlLoader.setController(new FinancialMenuController(databaseManager, documentLoader));

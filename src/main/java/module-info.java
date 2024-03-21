@@ -29,4 +29,8 @@ module ru.pio.aclij.documents {
     opens ru.pio.aclij.documents.controllers to javafx.fxml;
     exports ru.pio.aclij.documents.config.source;
     opens ru.pio.aclij.documents.config.source to javafx.fxml, com.fasterxml.jackson.databind;
+    exports ru.pio.aclij.documents.controllers.helpers;
+    opens ru.pio.aclij.documents.controllers.helpers to javafx.fxml;
+    exports ru.pio.aclij.documents.financial.noderegistry;
+    opens ru.pio.aclij.documents.financial.noderegistry to javafx.fxml, org.hibernate.orm.core;
 }

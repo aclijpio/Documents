@@ -1,22 +1,17 @@
 package ru.pio.aclij.documents.financial.document;
 
 import jakarta.persistence.*;
-import javafx.collections.ObservableList;
-import javafx.scene.Parent;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import lombok.*;
-import ru.pio.aclij.documents.financial.customcontrols.financialControls.DocumentHelper;
-import ru.pio.aclij.documents.financial.customcontrols.financialControls.FinancialControls;
+import ru.pio.aclij.documents.controllers.helpers.ParentDocumentHelper;
+import ru.pio.aclij.documents.financial.noderegistry.NodeRegistry;
+import ru.pio.aclij.documents.financial.customcontrols.financialControls.FinancialControlsFactory;
 import ru.pio.aclij.documents.financial.customcontrols.entityScene.ParentDocument;
-import ru.pio.aclij.documents.financial.customcontrols.financialControls.LabelledControl;
-import ru.pio.aclij.documents.financial.customcontrols.financialControls.ValidationBarInputControl;
 import ru.pio.aclij.documents.financial.document.clients.User;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
 import java.util.regex.Pattern;
 
 @NoArgsConstructor
@@ -25,8 +20,8 @@ import java.util.regex.Pattern;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Document implements ParentDocument {
 
-    private static final Pattern PATTERN_FOR_NUMBER = Pattern.compile("^\\w\\d$");
-    private static final Pattern PATTERN_FOR_DOUBLE = Pattern.compile("^\\d+(?:\\.\\d)?#");
+    public static final Pattern PATTERN_FOR_NUMBER = Pattern.compile("^\\w\\d$");
+    public static final Pattern PATTERN_FOR_DOUBLE = Pattern.compile("^\\d+(?:\\.\\d)?#");
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -52,57 +47,65 @@ public abstract class Document implements ParentDocument {
     }
 
     @Override
-    public ObservableList<Parent> toParent(DocumentHelper factory) {
+    public NodeRegistry toNodeTree(ParentDocumentHelper helper) {
 
-        List<LabelledControl> labelledControls = new ArrayList<>();
-        if(this.getId() != null){
-            labelledControls.add(new LabelledControl(
-                    "Id",
-                    new Label("ID: "),
-                    FinancialControls.createUneditableTextField(String.valueOf(this.getId()))
-            ));
+        NodeRegistry nodeRegistry = new NodeRegistry();
+
+        if (this.getId() != null) {
+            nodeRegistry.createHBoxTrees(
+                    FinancialControlsFactory.createUneditableTextField(String.valueOf(this.getId())),
+                    labelTree -> labelTree
+                            .createLabelWithBox("ID: ")
+            );
         }
-        labelledControls.add(
-                new LabelledControl(
-                        "Number",
-                        new Label("Номер :"),
-                factory.getValidationTextField(
+        nodeRegistry.createHBoxTrees(
+                helper.getValidationTextField(
                         input -> applyMatcher(input, PATTERN_FOR_NUMBER),
-                        FinancialControls.createAlertWrapper("Номер введен направильно", "Номер состоят из Буквы и Цифр (K102).")
-        )));
-        labelledControls.add(new LabelledControl(
-                "Date",
-                new Label("Дата: "),
-                new DatePicker()
-        ));
-        labelledControls.add(new LabelledControl(
-                "User",
-                new Label("Пользователь :"),
-                new TextField(this.getUser() == null ? null : this.getUser().getName())
-        ));
-        labelledControls.add(new LabelledControl(
-                "Amount",
-                new Label("Сумма :"),
-                factory.getValidationTextField(
+                        FinancialControlsFactory
+                                .createAlertWrapper("Номер введен направильно", "Номер состоят из Буквы и Цифр (K102).")),
+                labelTree -> labelTree
+                        .createLabelWithBox("Номер: ")
+        );
+        nodeRegistry.createHBoxTrees(
+                FinancialControlsFactory.createCurrentDatePicker(),
+                labelTree -> labelTree
+                        .createLabelWithBox("Дата: ")
+        );
+        nodeRegistry.add(
+                helper.getStringComboBox(
+                        User.class,
+                        new TextField(this.getUser() == null ? "" : this.getUser().getName())
+                        )
+        );
+        nodeRegistry.createHBoxTrees(
+                helper.getValidationTextField(
                         input -> applyMatcher(input, PATTERN_FOR_DOUBLE),
-                        FinancialControls.createAlertWrapper("Сумма введена неправильно", "Поле суммы должно иметь вид 213131 / 211.2112")
-        )));
+                        FinancialControlsFactory.createAlertWrapper("Сумма введена неправильно", "Поле суммы должно иметь вид 213131 / 211.2112")),
+                labelTree -> labelTree.createLabelWithBox("Сумма: ")
+        );
 
-        return ValidationBarInputControl.getControls(labelledControls);
+
+        return nodeRegistry;
     }
 
 
     @Override
-    public Document fromParent(Parent parent) {
-
+    public Document fromNodeTree(ParentDocumentHelper helper, NodeRegistry nodeRegistry) {
+        this.number = nodeRegistry.getIdNode(TextField.class).getText();
+        this.date = nodeRegistry.getIdNode(DatePicker.class).getValue();
+        String username = nodeRegistry.getIdNode(TextField.class).getText();
+        Optional<User> user = helper.getHelper().getDatabaseManager().findByName(User.class, username);
+        this.user = user.orElseGet(() -> new User(username));
+        this.amountOfMoney = Long.parseLong(nodeRegistry.getIdNode(TextField.class).getText());
+        return this;
     }
 
-    private boolean applyMatcher(String input, Pattern pattern){
+
+    boolean applyMatcher(String input, Pattern pattern){
         return pattern.matcher(input).matches();
     }
     @Override
     public String toString() {
-
         String name = switch (this.getClass().getSimpleName()){
             case "Invoice" -> "Накладная";
             case "Payment" -> "Платёжка";
