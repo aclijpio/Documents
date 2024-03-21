@@ -4,21 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fd28413e-d9d3-4b89-9041-f86b94933c7a" name="Changes" comment="controls">
+    <list default="true" id="fd28413e-d9d3-4b89-9041-f86b94933c7a" name="Changes" comment="entity">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/controllers/DocumentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/controllers/DocumentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/controllers/helpers/DocumentLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/controllers/helpers/DocumentLoader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/controllers/helpers/ParentDocumentHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/controllers/helpers/ParentDocumentHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/customcontrols/financialControls/FinancialControlsFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/customcontrols/financialControls/FinancialControlsFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/customcontrols/financialControls/LabelledControl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/customcontrols/financialControls/ValidatingTextField.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/customcontrols/financialControls/ValidatingTextField.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/customcontrols/financialControls/ValidationBarInputControl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/document/Document.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/document/Document.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/document/Invoice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/document/Invoice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/customcontrols/financialControls/StringComboBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/customcontrols/financialControls/StringComboBox.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/document/Payment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/document/Payment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/noderegistry/LabelTree.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/noderegistry/LabelTree.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/noderegistry/NodeRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/noderegistry/NodeRegistry.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/services/FinancialMenuService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/services/FinancialMenuService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/ru/pio/aclij/documents/entity.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ru/pio/aclij/documents/entity.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ru/pio/aclij/documents/Styles/entity.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ru/pio/aclij/documents/Styles/entity.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ru/pio/aclij/documents/financial-menu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ru/pio/aclij/documents/financial-menu.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -162,7 +156,7 @@
       <workItem from="1710857881225" duration="17174000" />
       <workItem from="1710916930738" duration="3979000" />
       <workItem from="1710944999308" duration="15319000" />
-      <workItem from="1711004098061" duration="40611000" />
+      <workItem from="1711004098061" duration="42687000" />
     </task>
     <task id="LOCAL-00001" summary="document bd">
       <option name="closed" value="true" />
@@ -204,7 +198,15 @@
       <option name="project" value="LOCAL" />
       <updated>1711037561509</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="entity">
+      <option name="closed" value="true" />
+      <created>1711051954043</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1711051954043</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -213,6 +215,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="document bd" />
     <MESSAGE value="controls" />
-    <option name="LAST_COMMIT_MESSAGE" value="controls" />
+    <MESSAGE value="entity" />
+    <option name="LAST_COMMIT_MESSAGE" value="entity" />
   </component>
 </project>

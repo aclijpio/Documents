@@ -28,6 +28,7 @@ public class DocumentController {
     private final Document document;
     private final ParentDocumentHelper parentDocumentHelper;
     private NodeRegistry nodeRegistry;
+    private final Stage stage;
 
     @Getter
     @FXML
@@ -49,6 +50,7 @@ public class DocumentController {
         this.helper = helper;
         this.document = document;
         this.parentDocumentHelper = new ParentDocumentHelper(helper, this);
+        this.stage = stage;
     }
 
     @FXML
@@ -78,6 +80,7 @@ public class DocumentController {
         TextField textField = (TextField) nodeOptional.get();
         long id = Long.parseLong(textField.getText());
         this.service.delete(id);
+        this.stage.close();
     }
 
     private NodeRegistry loadEntity(){

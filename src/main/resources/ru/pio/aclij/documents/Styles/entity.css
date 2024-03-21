@@ -15,3 +15,12 @@
 .bottom_bar .button {
     -fx-pref-width: 100;
 }
+.entity_container .text-field{
+    -fx-alignment: LEFT_CENTER;
+}
+.entity_container .combo-box{
+    -fx-pref-width: 150;
+}
+.entity_container .label {
+    -fx-pref-width: 150;
+}

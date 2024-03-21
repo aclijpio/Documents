@@ -45,7 +45,7 @@ public class ParentDocumentHelper {
         NodeRegistry nodeRegistry = new NodeRegistry();
         return nodeRegistry.createHBoxTrees(
                 textField,
-                labelTree -> labelTree.createHBox(
+                labelTree -> labelTree.createHBox(0,
                         new HBox(
                                 FinancialControlsFactory.getStringComboBox(
                                         helper.getDatabaseManager().findAllByClass(clazz).stream()

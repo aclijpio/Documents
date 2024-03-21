@@ -21,8 +21,21 @@ public class LabelTree {
         this.hBox = hBox;
         return this;
     }
+    public LabelTree createHBox(int id, HBox hBox){
+        hBox.getChildren().add(id, this.hBox);
+        this.hBox = hBox;
+        return this;
+    }
     public LabelTree createLabelWithBox(String label){
         return createHBox(
+                new HBox(
+                        new Label(label)
+                )
+        );
+    }
+    public LabelTree createLabelWithBox(int id, String label){
+        return createHBox(
+                id,
                 new HBox(
                         new Label(label)
                 )

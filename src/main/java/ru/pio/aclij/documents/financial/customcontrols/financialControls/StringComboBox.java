@@ -13,7 +13,6 @@ public class StringComboBox extends ComboBox<String> {
 
     public StringComboBox(List <String> suggestions, TextField textField) {
         super();
-
         textField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.isEmpty()) {
                 this.getItems().clear();
