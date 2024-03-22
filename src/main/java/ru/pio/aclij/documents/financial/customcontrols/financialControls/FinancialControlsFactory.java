@@ -1,12 +1,11 @@
 package ru.pio.aclij.documents.financial.customcontrols.financialControls;
 
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import ru.pio.aclij.documents.controllers.DocumentController;
 import ru.pio.aclij.documents.financial.database.FinancialDatabaseManager;
-import ru.pio.aclij.documents.financial.document.money.CurrencyCode;
+import ru.pio.aclij.documents.financial.documents.money.CurrencyCode;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -34,8 +33,14 @@ public class FinancialControlsFactory {
         return validatingTextField;
     }
     public static DatePicker createCurrentDatePicker(){
+        return createDatePicker(LocalDate.now());
+    }
+    public static DatePicker createDatePicker(LocalDate date){
+        if (date == null)
+            return createCurrentDatePicker();
         DatePicker datePicker = new DatePicker();
-        datePicker.setValue(LocalDate.now());
+        datePicker.setValue(date);
+        datePicker.setEditable(false);
         return datePicker;
     }
     public static ComboBox<String> getStringComboBox(List<String> suggestions, TextField textField){

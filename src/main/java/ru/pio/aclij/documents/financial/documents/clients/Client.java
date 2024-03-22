@@ -1,4 +1,4 @@
-package ru.pio.aclij.documents.financial.document.clients;
+package ru.pio.aclij.documents.financial.documents.clients;
 
 import jakarta.persistence.MappedSuperclass;
 

@@ -1,15 +1,15 @@
 package ru.pio.aclij.documents.financial.database;
 
-import jakarta.persistence.*;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.Table;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
-import ru.pio.aclij.documents.financial.document.Document;
 
-import java.util.Currency;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public abstract class AbstractDatabaseManager {
     public final EntityManagerFactory entityManagerFactory;
@@ -38,12 +38,12 @@ public abstract class AbstractDatabaseManager {
         entityManager.close();
         return entity;
     }
-    public <T> Long update(T entity) {
+    public <T> T update(T entity) {
         try(EntityManager entityManager = entityManagerFactory.createEntityManager()) {
             entityManager.getTransaction().begin();
             T mergedEntity = entityManager.merge(entity);
             entityManager.getTransaction().commit();
-            return ((Document) mergedEntity).getId();
+            return mergedEntity;
         }
     }
 

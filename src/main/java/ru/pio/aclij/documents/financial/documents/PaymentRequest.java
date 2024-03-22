@@ -1,17 +1,24 @@
-package ru.pio.aclij.documents.financial.document;
+package ru.pio.aclij.documents.financial.documents;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import ru.pio.aclij.documents.controllers.exceptions.CurrencyDefaultNotSetException;
 import ru.pio.aclij.documents.controllers.helpers.ParentDocumentHelper;
-import ru.pio.aclij.documents.financial.document.money.CurrencyCode;
-import ru.pio.aclij.documents.financial.noderegistry.NodeRegistry;
 import ru.pio.aclij.documents.financial.customcontrols.financialControls.FinancialControlsFactory;
-import ru.pio.aclij.documents.financial.document.clients.User;
-import ru.pio.aclij.documents.financial.document.money.Currency;
-import ru.pio.aclij.documents.financial.document.money.Product;
+import ru.pio.aclij.documents.financial.documents.clients.Counterparty;
+import ru.pio.aclij.documents.financial.documents.clients.Employee;
+import ru.pio.aclij.documents.financial.documents.clients.User;
+import ru.pio.aclij.documents.financial.documents.money.Currency;
+import ru.pio.aclij.documents.financial.documents.money.CurrencyCode;
+import ru.pio.aclij.documents.financial.noderegistry.NodeRegistry;
 import ru.pio.aclij.documents.financial.noderegistry.exceptions.NodeUnavailableException;
 
 import java.time.LocalDate;
@@ -22,34 +29,45 @@ import java.util.Optional;
 @Getter
 @Setter
 @Entity
-public class Invoice extends Document {
+@Table(name = "payment_requests")
+public class PaymentRequest extends Document {
+
+    @ManyToOne()
+    @JoinColumn(name = "counterparty_id", nullable = false)
+    private Counterparty counterparty;
 
     @ManyToOne()
     @JoinColumn(name = "currency_id", nullable = false)
     private Currency currency;
 
-    @ManyToOne()
-    @JoinColumn(name = "product_id", nullable = false)
-    private Product product;
+    private double commission;
 
-    public Invoice(String number, LocalDate date, User user, double amountOfMoney, Currency currency, Product product) {
+    public PaymentRequest(String number, LocalDate date, User user, double amountOfMoney, Counterparty counterparty, Currency currency, double commission) {
         super(number, date, user, amountOfMoney);
+        this.counterparty = counterparty;
         this.currency = currency;
-        this.product = product;
+        this.commission = commission;
     }
 
     @Override
     public NodeRegistry toNodeTree(ParentDocumentHelper helper) {
+        NodeRegistry nodeRegistry =  super.toNodeTree(helper);
 
 
-        NodeRegistry nodeRegistry = super.toNodeTree(helper);
+        this.commission = helper.getHelper().getConfig().getCommission();
 
+        nodeRegistry.add(
+                helper.createStringComboBox(
+                        Employee.class,
+                        new TextField(this.getCounterparty() == null ? "" : this.getCounterparty().getName()),
+                        "Контрагент: "
+                )
+        );
         if (this.getCurrency() == null) {
             Optional<Currency> currentCurrency = helper.getDefaultCurrencyByCurrencyCode();
 
             this.setCurrency(currentCurrency.orElseThrow(CurrencyDefaultNotSetException::new));
         }
-
         TextField rateTextField = FinancialControlsFactory.createUneditableTextField(String.valueOf(this.getCurrency().getRate()));
 
 
@@ -65,21 +83,10 @@ public class Invoice extends Document {
                 labelTree -> labelTree
                         .createLabelWithBox("Курс валюты: ")
         );
-        nodeRegistry.add(
-                helper.createStringComboBox(
-                        Product.class,
-                        new TextField(this.getProduct() == null ? "" : this.getProduct().getName()),
-                        "Товар: "
-                )
-        );
-
-
         nodeRegistry.createHBoxTrees(
-                helper.createValidationTextField(
-                        input -> applyMatcher(input, PATTERN_FOR_DOUBLE),
-                        FinancialControlsFactory.createAlertWrapper("Сумма введена неправильно", "Поле суммы должно иметь вид 213131 / 211.2112")),
+                FinancialControlsFactory.createUneditableTextField(String.valueOf(commission)),
                 labelTree -> labelTree
-                        .createLabelWithBox("Количество товаров: ")
+                        .createLabelWithBox("Комиссия: ")
         );
 
         return nodeRegistry;
@@ -92,6 +99,16 @@ public class Invoice extends Document {
 
         super.fromNodeTree(helper, nodeRegistry);
 
+        String employeeName = nodeRegistry.getNode(TextField.class).getText();
+        Optional<Counterparty> employeeOptional = helper.getHelper().getDatabaseManager().findByName(Counterparty.class, employeeName);
+        if (employeeOptional.isEmpty()){
+            this.counterparty = new Counterparty(employeeName);
+            helper.getHelper().getDatabaseManager().save(this.counterparty);
+        } else {
+            this.counterparty = employeeOptional.get();
+        }
+
+
         CurrencyCode stringCurrency = (CurrencyCode) nodeRegistry.getNode(ComboBox.class).getSelectionModel().getSelectedItem();
 
         Optional<Currency> currency = helper.getHelper().getDatabaseManager().findCurrencyByCurrencyCode(stringCurrency);
@@ -99,18 +116,6 @@ public class Invoice extends Document {
             throw new NodeUnavailableException("Currency not found");
         this.currency = currency.get();
 
-        String productName =  nodeRegistry.getNode(TextField.class).getText();
-        Optional<Product> product = helper.getHelper().getDatabaseManager().findByName(Product.class, productName);
-        nodeRegistry.skip();
-        long quantity = Long.parseLong(nodeRegistry.getNode(TextField.class).getText());
-
-        if (product.isEmpty()) {
-            this.product = new Product(productName, quantity);
-            helper.getHelper().getDatabaseManager().save(this.product);
-        }
-        else {
-            this.product = product.get();
-        }
 
         return this;
     }

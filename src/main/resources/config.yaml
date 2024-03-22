@@ -8,3 +8,4 @@ files:
   entity: entity.fxml
 financial:
   defaultCurrency: EUR
+  commission: 5

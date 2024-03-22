@@ -1,15 +1,13 @@
 package ru.pio.aclij.documents.controllers.helpers;
 
 import javafx.fxml.FXMLLoader;
-import javafx.stage.Stage;
 import lombok.Getter;
 import ru.pio.aclij.documents.FinancialApplication;
 import ru.pio.aclij.documents.config.exceptions.FailedToLoadFileNameException;
 import ru.pio.aclij.documents.config.source.Files;
 import ru.pio.aclij.documents.controllers.DocumentController;
-import ru.pio.aclij.documents.controllers.helpers.DocumentHelper;
 import ru.pio.aclij.documents.financial.customcontrols.entityScene.DocumentScene;
-import ru.pio.aclij.documents.financial.document.Document;
+import ru.pio.aclij.documents.financial.customcontrols.stage.DocumentStage;
 
 import java.io.IOException;
 
@@ -24,15 +22,14 @@ public class DocumentLoader {
         this.files = files;
     }
 
-    public DocumentScene loadByDocument(Document document, Stage stage){
+    public DocumentScene loadByDocument(DocumentStage stage){
         try {
 
             FXMLLoader loader = new FXMLLoader(FinancialApplication.class.getResource(files.getEntity()));
 
-            DocumentController controller = new DocumentController(helper, document, stage);
+            DocumentController controller = new DocumentController(helper, stage);
             loader.setController(controller);
-            DocumentScene scene = new DocumentScene(loader);
-            return scene;
+            return new DocumentScene(loader);
         } catch (IOException e)
         {
             throw new FailedToLoadFileNameException("The form file cannot be loaded.", e);

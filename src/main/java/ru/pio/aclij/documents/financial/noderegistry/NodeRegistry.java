@@ -49,6 +49,10 @@ public class NodeRegistry{
     public Optional<Node> getIdNode(){
         return Optional.ofNullable(this.idNode);
     }
+    public void setIdNode(LabelTree labelTree){
+        this.idNode = labelTree.getNode();
+    }
+
     public void clear(){
         this.counter = 0;
     }

@@ -1,18 +1,17 @@
 package ru.pio.aclij.documents.controllers;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import lombok.Getter;
 import ru.pio.aclij.documents.controllers.helpers.DocumentHelper;
 import ru.pio.aclij.documents.controllers.helpers.ParentDocumentHelper;
 import ru.pio.aclij.documents.financial.customcontrols.financialControls.ValidationButton;
-import ru.pio.aclij.documents.financial.document.Document;
+import ru.pio.aclij.documents.financial.customcontrols.stage.DocumentActionCode;
+import ru.pio.aclij.documents.financial.customcontrols.stage.DocumentStage;
 import ru.pio.aclij.documents.financial.noderegistry.LabelTree;
 import ru.pio.aclij.documents.financial.noderegistry.NodeRegistry;
 import ru.pio.aclij.documents.services.DocumentService;
@@ -25,10 +24,9 @@ public class DocumentController {
     private final DocumentService service;
     @Getter
     private final DocumentHelper helper;
-    private final Document document;
     private final ParentDocumentHelper parentDocumentHelper;
     private NodeRegistry nodeRegistry;
-    private final Stage stage;
+    private final DocumentStage stage;
 
     @Getter
     @FXML
@@ -45,59 +43,64 @@ public class DocumentController {
     private ValidationButton update;
 
 
-    public DocumentController(DocumentHelper helper, Document document, Stage stage) {
+    public DocumentController(DocumentHelper helper, DocumentStage stage) {
         this.service = new DocumentService(helper.getDatabaseManager());
         this.helper = helper;
-        this.document = document;
         this.parentDocumentHelper = new ParentDocumentHelper(helper, this);
         this.stage = stage;
     }
 
-    @FXML
-    public void save(){
-        Document documentP = document.fromNodeTree(parentDocumentHelper, this.nodeRegistry);
-        Document currentDocument = helper.getDatabaseManager().save(documentP);
-        this.fillDocumentMode();
 
-        LabelTree labelTree = parentDocumentHelper.createInNode(currentDocument.getId());
-        getForm().getChildren().add(0,
-                labelTree.getHBox()
+    @FXML
+    private void close(){
+        this.service.closeForm(stage);
+    }
+
+    @FXML
+    private void save(){
+        LabelTree labelTree = this.service.getSavedTree(this.stage.getDocument(), this.parentDocumentHelper, this.nodeRegistry);
+        this.nodeRegistry.setIdNode(
+                labelTree
         );
+        getForm().getChildren().add(0,
+                    labelTree.getHBox()
+                );
+        fillDocumentMode();
+        stage.addAction(DocumentActionCode.ADD);
     }
     @FXML
-    public void update(){
-
-
+    private void update(){
+        this.service.getUpdatedTree(this.stage.getDocument(), this.parentDocumentHelper, this.nodeRegistry);
+        stage.addAction(DocumentActionCode.UPDATE);
     }
-
     @FXML
-    public void delete(){
+    private void delete(){
         Optional<Node> nodeOptional = nodeRegistry.getIdNode();
 
         if (nodeOptional.isEmpty())
-            throw new TextFieldNotFoundException("TextField not found on the form.");
+            throw new TextFieldNotFoundException("Id not found on the form.");
 
         TextField textField = (TextField) nodeOptional.get();
         long id = Long.parseLong(textField.getText());
         this.service.delete(id);
         this.stage.close();
+        stage.addAction(DocumentActionCode.DELETE);
     }
 
+
     private NodeRegistry loadEntity(){
-        NodeRegistry nodeRegistry = this.document.toNodeTree(parentDocumentHelper);
+        NodeRegistry nodeRegistry = this.stage.getDocument().toNodeTree(parentDocumentHelper);
+
         getForm().getChildren().addAll(
                 nodeRegistry.getNodes()
         );
+
         return nodeRegistry;
     }
     @FXML
     public void initialize() {
         this.save = new SaveButton("Сохранить", this);
         this.update = new UpdateButton("Обновить", this);
-        save.setVisible(false);
-        update.setVisible(false);
-        deleteButton.setVisible(false);
-
 
         buttonsForm.getChildren().addAll(
                 this.save,
@@ -106,14 +109,35 @@ public class DocumentController {
         this.nodeRegistry = loadEntity();
 
 
+        this.nodeRegistry = setDocumentIdToNodeRegistry();
 
 
         Optional<Node> node = this.nodeRegistry.getIdNode();
-        if (node.isPresent()){
+        if (node.isPresent())
             fillDocumentMode();
-        } else {
+        else
             emptyDocumentMode();
+
+
+    }
+
+    private boolean availableDocumentId(){
+        return this.stage.getDocument().getId() != null;
+    }
+    private NodeRegistry setDocumentIdToNodeRegistry(){
+        if (availableDocumentId()){
+            LabelTree labelTree = parentDocumentHelper.createIdNode(this.stage.getDocument().getId());
+            this.nodeRegistry.setIdNode(
+                    labelTree
+            );
+            getForm().getChildren().add(0,
+                    labelTree.getHBox()
+            );
+            fillDocumentMode();
+
+            getForm().autosize();
         }
+        return this.nodeRegistry;
     }
 
     static private class SaveButton extends ValidationButton {

@@ -1,10 +1,6 @@
 package ru.pio.aclij.documents.financial.customcontrols.financialControls;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventType;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import ru.pio.aclij.documents.controllers.DocumentController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,14 +13,18 @@ public abstract class ValidationButton extends Button {
         super(name);
 
         this.setOnAction(actionEvent -> {
+
+            boolean flag = true;
+
             for (ValidatingTextField textField : fields) {
                 if (!textField.applyPredicate()) {
                     textField.createAlert().execute();
-                    actionEvent.consume();
+                    flag = false;
                     break;
                 }
             }
-            executeEvent();
+            if (flag)
+                executeEvent();
         });
     }
     public abstract void executeEvent();

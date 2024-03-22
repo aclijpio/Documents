@@ -1,7 +1,6 @@
-package ru.pio.aclij.documents.financial.customcontrols.entityScene;
+package ru.pio.aclij.documents.financial.documents;
 
 import ru.pio.aclij.documents.controllers.helpers.ParentDocumentHelper;
-import ru.pio.aclij.documents.financial.document.Document;
 import ru.pio.aclij.documents.financial.noderegistry.NodeRegistry;
 
 public interface ParentDocument {

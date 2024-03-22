@@ -16,7 +16,7 @@
     -fx-pref-width: 100;
 }
 .entity_container .text-field{
-    -fx-alignment: LEFT_CENTER;
+    -fx-alignment: top_center;
 }
 .entity_container .combo-box{
     -fx-pref-width: 150;

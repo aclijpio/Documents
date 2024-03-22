@@ -1,7 +1,12 @@
 package ru.pio.aclij.documents.services;
 
-import javafx.scene.Parent;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
+import ru.pio.aclij.documents.controllers.helpers.ParentDocumentHelper;
 import ru.pio.aclij.documents.financial.database.FinancialDatabaseManager;
+import ru.pio.aclij.documents.financial.documents.Document;
+import ru.pio.aclij.documents.financial.noderegistry.LabelTree;
+import ru.pio.aclij.documents.financial.noderegistry.NodeRegistry;
 
 public class DocumentService {
 
@@ -15,12 +20,20 @@ public class DocumentService {
         databaseManager.deleteDocumentById(id);
     }
 
-    public void save(Parent parent){
+    public LabelTree getSavedTree(Document document, ParentDocumentHelper helper, NodeRegistry nodeRegistry){
+        nodeRegistry.clear();
+        Document documentP = document.fromNodeTree(helper, nodeRegistry);
+        Document savedDocument = helper.getHelper().getDatabaseManager().save(documentP);
 
+        return helper.createIdNode(savedDocument.getId());
     }
-    public void update(){
-
+    public void getUpdatedTree(Document document, ParentDocumentHelper helper, NodeRegistry nodeRegistry){
+        nodeRegistry.clear();
+        Document documentP = document.fromNodeTree(helper, nodeRegistry);
+        helper.getHelper().getDatabaseManager().update(documentP);
     }
-
+    public void closeForm(Stage stage){
+        stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
+    }
 
 }

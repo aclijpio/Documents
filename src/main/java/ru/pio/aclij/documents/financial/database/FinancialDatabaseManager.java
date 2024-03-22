@@ -1,15 +1,9 @@
 package ru.pio.aclij.documents.financial.database;
 
 import jakarta.persistence.*;
-import ru.pio.aclij.documents.financial.document.Document;
-import ru.pio.aclij.documents.financial.document.Payment;
-import ru.pio.aclij.documents.financial.document.PaymentRequest;
-import ru.pio.aclij.documents.financial.document.clients.Counterparty;
-import ru.pio.aclij.documents.financial.document.clients.Employee;
-import ru.pio.aclij.documents.financial.document.clients.User;
-import ru.pio.aclij.documents.financial.document.money.Currency;
-import ru.pio.aclij.documents.financial.document.money.CurrencyCode;
-import ru.pio.aclij.documents.financial.document.money.Product;
+import ru.pio.aclij.documents.financial.documents.Document;
+import ru.pio.aclij.documents.financial.documents.money.Currency;
+import ru.pio.aclij.documents.financial.documents.money.CurrencyCode;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,14 +14,25 @@ public class FinancialDatabaseManager extends AbstractDatabaseManager {
         super(entityManagerFactory);
     }
     public List<? extends Document> findAllDocuments(){
-        EntityManager entityManager = this.entityManagerFactory.createEntityManager();
-        TypedQuery<? extends Document> query = entityManager.createQuery(
-                "SELECT d FROM Document d WHERE TYPE(d) IN (Invoice, Payment, PaymentRequest)", Document.class);
-        List<? extends Document> documents = query.getResultList();
-        entityManager.close();
-        return documents;
+        try(EntityManager entityManager = this.entityManagerFactory.createEntityManager()) {
+            TypedQuery<? extends Document> query = entityManager.createQuery(
+                    "SELECT d FROM Document d WHERE TYPE(d) IN (Invoice, Payment, PaymentRequest)",
+                    Document.class);
+            return query.getResultList();
+        }
     }
+    public boolean checkUniqueNumber(String number){
+        try(EntityManager entityManager = this.entityManagerFactory.createEntityManager()){
+            TypedQuery<? extends Document> query = entityManager.createQuery(
+                    "SELECT d FROM Document d WHERE TYPE(d) IN (Invoice, Payment, PaymentRequest) AND d.number = :currentNumber",
+                    Document.class);
+            query.setParameter("currentNumber", number);
+            return query.getSingleResult() == null;
 
+        } catch (NoResultException e){
+          return true;
+        }
+    }
     public void deleteDocumentById(Long id ){
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();

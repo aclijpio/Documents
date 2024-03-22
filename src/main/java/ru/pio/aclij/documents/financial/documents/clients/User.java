@@ -1,7 +1,9 @@
-package ru.pio.aclij.documents.financial.document.clients;
+package ru.pio.aclij.documents.financial.documents.clients;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Setter
 @NoArgsConstructor

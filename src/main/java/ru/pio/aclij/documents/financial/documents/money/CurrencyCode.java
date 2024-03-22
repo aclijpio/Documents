@@ -1,4 +1,4 @@
-package ru.pio.aclij.documents.financial.document.money;
+package ru.pio.aclij.documents.financial.documents.money;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

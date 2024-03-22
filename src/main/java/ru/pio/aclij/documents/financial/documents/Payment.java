@@ -1,13 +1,17 @@
-package ru.pio.aclij.documents.financial.document;
+package ru.pio.aclij.documents.financial.documents;
 
-import jakarta.persistence.*;
-import javafx.scene.Parent;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import javafx.scene.control.TextField;
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import ru.pio.aclij.documents.controllers.helpers.ParentDocumentHelper;
-import ru.pio.aclij.documents.financial.customcontrols.entityScene.ParentDocument;
-import ru.pio.aclij.documents.financial.document.clients.Employee;
-import ru.pio.aclij.documents.financial.document.clients.User;
+import ru.pio.aclij.documents.financial.documents.clients.Employee;
+import ru.pio.aclij.documents.financial.documents.clients.User;
 import ru.pio.aclij.documents.financial.noderegistry.NodeRegistry;
 
 import java.time.LocalDate;
@@ -44,8 +48,6 @@ public class Payment extends Document {
 
     @Override
     public Document fromNodeTree(ParentDocumentHelper helper, NodeRegistry nodeRegistry) {
-        nodeRegistry.clear();
-
         super.fromNodeTree(helper, nodeRegistry);
 
         String employeeName = nodeRegistry.getNode(TextField.class).getText();

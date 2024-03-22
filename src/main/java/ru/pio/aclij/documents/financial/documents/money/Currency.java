@@ -1,10 +1,8 @@
-package ru.pio.aclij.documents.financial.document.money;
+package ru.pio.aclij.documents.financial.documents.money;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.pio.aclij.documents.financial.document.Document;
 
 @NoArgsConstructor
 @Data
