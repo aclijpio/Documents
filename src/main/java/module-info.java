@@ -17,13 +17,13 @@ module ru.pio.aclij.documents {
     opens ru.pio.aclij.documents to javafx.fxml;
 
     exports ru.pio.aclij.documents;
-    exports ru.pio.aclij.documents.financial.documents;
+    exports ru.pio.aclij.documents.financial.entities;
 
-    opens ru.pio.aclij.documents.financial.documents to javafx.fxml, org.hibernate.orm.core;
-    exports ru.pio.aclij.documents.financial.documents.money;
-    opens ru.pio.aclij.documents.financial.documents.money to javafx.fxml, org.hibernate.orm.core;
-    exports ru.pio.aclij.documents.financial.documents.clients;
-    opens ru.pio.aclij.documents.financial.documents.clients to javafx.fxml, org.hibernate.orm.core;
+    opens ru.pio.aclij.documents.financial.entities to javafx.fxml, org.hibernate.orm.core;
+    exports ru.pio.aclij.documents.financial.entities.money;
+    opens ru.pio.aclij.documents.financial.entities.money to javafx.fxml, org.hibernate.orm.core;
+    exports ru.pio.aclij.documents.financial.entities.clients;
+    opens ru.pio.aclij.documents.financial.entities.clients to javafx.fxml, org.hibernate.orm.core;
     exports ru.pio.aclij.documents.config;
     opens ru.pio.aclij.documents.config to javafx.fxml;
     exports ru.pio.aclij.documents.controllers;

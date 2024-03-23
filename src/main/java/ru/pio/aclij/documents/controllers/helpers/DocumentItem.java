@@ -5,7 +5,7 @@ import javafx.beans.property.BooleanProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import ru.pio.aclij.documents.financial.documents.Document;
+import ru.pio.aclij.documents.financial.entities.Document;
 
 @ToString
 @Getter

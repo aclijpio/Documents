@@ -7,7 +7,7 @@ import ru.pio.aclij.documents.controllers.DocumentController;
 import ru.pio.aclij.documents.financial.customcontrols.financialControls.validation.AlertWrapper;
 import ru.pio.aclij.documents.financial.customcontrols.financialControls.validation.ValidatingTextField;
 import ru.pio.aclij.documents.financial.database.FinancialDatabaseManager;
-import ru.pio.aclij.documents.financial.documents.money.CurrencyCode;
+import ru.pio.aclij.documents.financial.entities.money.CurrencyCode;
 
 import java.time.LocalDate;
 import java.util.List;

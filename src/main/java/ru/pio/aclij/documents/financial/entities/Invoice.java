@@ -1,4 +1,4 @@
-package ru.pio.aclij.documents.financial.documents;
+package ru.pio.aclij.documents.financial.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -9,10 +9,10 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import ru.pio.aclij.documents.controllers.helpers.ParentDocumentHelper;
-import ru.pio.aclij.documents.financial.documents.clients.User;
-import ru.pio.aclij.documents.financial.documents.money.Currency;
-import ru.pio.aclij.documents.financial.documents.money.CurrencyCode;
-import ru.pio.aclij.documents.financial.documents.money.Product;
+import ru.pio.aclij.documents.financial.entities.clients.User;
+import ru.pio.aclij.documents.financial.entities.money.Currency;
+import ru.pio.aclij.documents.financial.entities.money.CurrencyCode;
+import ru.pio.aclij.documents.financial.entities.money.Product;
 import ru.pio.aclij.documents.financial.noderegistry.NodeRegistry;
 import ru.pio.aclij.documents.financial.noderegistry.exceptions.NodeUnavailableException;
 

@@ -1,4 +1,4 @@
-package ru.pio.aclij.documents.financial.documents;
+package ru.pio.aclij.documents.financial.entities;
 
 import jakarta.persistence.*;
 import javafx.scene.control.DatePicker;
@@ -6,7 +6,7 @@ import javafx.scene.control.TextField;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import ru.pio.aclij.documents.controllers.helpers.ParentDocumentHelper;
-import ru.pio.aclij.documents.financial.documents.clients.User;
+import ru.pio.aclij.documents.financial.entities.clients.User;
 import ru.pio.aclij.documents.financial.noderegistry.NodeRegistry;
 
 import java.time.LocalDate;

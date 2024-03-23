@@ -1,4 +1,4 @@
-package ru.pio.aclij.documents.financial.documents;
+package ru.pio.aclij.documents.financial.entities;
 
 import ru.pio.aclij.documents.controllers.helpers.ParentDocumentHelper;
 import ru.pio.aclij.documents.financial.noderegistry.NodeRegistry;

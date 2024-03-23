@@ -16,10 +16,10 @@ import ru.pio.aclij.documents.controllers.helpers.DocumentLoader;
 import ru.pio.aclij.documents.financial.customcontrols.stage.DocumentActionCode;
 import ru.pio.aclij.documents.financial.customcontrols.stage.DocumentStage;
 import ru.pio.aclij.documents.financial.database.FinancialDatabaseManager;
-import ru.pio.aclij.documents.financial.documents.Document;
-import ru.pio.aclij.documents.financial.documents.Invoice;
-import ru.pio.aclij.documents.financial.documents.Payment;
-import ru.pio.aclij.documents.financial.documents.PaymentRequest;
+import ru.pio.aclij.documents.financial.entities.Document;
+import ru.pio.aclij.documents.financial.entities.Invoice;
+import ru.pio.aclij.documents.financial.entities.Payment;
+import ru.pio.aclij.documents.financial.entities.PaymentRequest;
 import ru.pio.aclij.documents.services.FinancialMenuService;
 
 import java.net.URL;

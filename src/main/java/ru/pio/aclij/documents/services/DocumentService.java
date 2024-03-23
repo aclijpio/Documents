@@ -4,7 +4,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import ru.pio.aclij.documents.controllers.helpers.ParentDocumentHelper;
 import ru.pio.aclij.documents.financial.database.FinancialDatabaseManager;
-import ru.pio.aclij.documents.financial.documents.Document;
+import ru.pio.aclij.documents.financial.entities.Document;
 import ru.pio.aclij.documents.financial.noderegistry.LabelTree;
 import ru.pio.aclij.documents.financial.noderegistry.NodeRegistry;
 

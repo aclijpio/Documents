@@ -1,9 +1,9 @@
 package ru.pio.aclij.documents.financial.database;
 
 import jakarta.persistence.*;
-import ru.pio.aclij.documents.financial.documents.Document;
-import ru.pio.aclij.documents.financial.documents.money.Currency;
-import ru.pio.aclij.documents.financial.documents.money.CurrencyCode;
+import ru.pio.aclij.documents.financial.entities.Document;
+import ru.pio.aclij.documents.financial.entities.money.Currency;
+import ru.pio.aclij.documents.financial.entities.money.CurrencyCode;
 
 import java.util.List;
 import java.util.Optional;

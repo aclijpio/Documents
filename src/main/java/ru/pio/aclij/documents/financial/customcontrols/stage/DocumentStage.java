@@ -3,7 +3,7 @@ package ru.pio.aclij.documents.financial.customcontrols.stage;
 import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
-import ru.pio.aclij.documents.financial.documents.Document;
+import ru.pio.aclij.documents.financial.entities.Document;
 
 public class DocumentStage extends Stage {
 

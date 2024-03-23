@@ -1,4 +1,4 @@
-package ru.pio.aclij.documents.financial.documents.money;
+package ru.pio.aclij.documents.financial.entities.money;
 
 import jakarta.persistence.*;
 import lombok.Data;

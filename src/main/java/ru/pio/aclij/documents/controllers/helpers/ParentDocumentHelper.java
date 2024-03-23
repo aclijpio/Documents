@@ -10,11 +10,11 @@ import ru.pio.aclij.documents.controllers.exceptions.CurrencyDefaultNotSetExcept
 import ru.pio.aclij.documents.financial.customcontrols.financialControls.FinancialControlsFactory;
 import ru.pio.aclij.documents.financial.customcontrols.financialControls.validation.AlertWrapper;
 import ru.pio.aclij.documents.financial.customcontrols.financialControls.validation.ValidatingTextField;
-import ru.pio.aclij.documents.financial.documents.clients.Client;
-import ru.pio.aclij.documents.financial.documents.clients.User;
-import ru.pio.aclij.documents.financial.documents.money.Currency;
-import ru.pio.aclij.documents.financial.documents.money.CurrencyCode;
-import ru.pio.aclij.documents.financial.documents.money.Product;
+import ru.pio.aclij.documents.financial.entities.clients.Client;
+import ru.pio.aclij.documents.financial.entities.clients.User;
+import ru.pio.aclij.documents.financial.entities.money.Currency;
+import ru.pio.aclij.documents.financial.entities.money.CurrencyCode;
+import ru.pio.aclij.documents.financial.entities.money.Product;
 import ru.pio.aclij.documents.financial.noderegistry.LabelTree;
 import ru.pio.aclij.documents.financial.noderegistry.NodeRegistry;
 
