@@ -2,6 +2,7 @@ package ru.pio.aclij.documents.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
@@ -9,7 +10,7 @@ import javafx.scene.layout.VBox;
 import lombok.Getter;
 import ru.pio.aclij.documents.controllers.helpers.DocumentHelper;
 import ru.pio.aclij.documents.controllers.helpers.ParentDocumentHelper;
-import ru.pio.aclij.documents.financial.customcontrols.financialControls.ValidationButton;
+import ru.pio.aclij.documents.financial.customcontrols.financialControls.validation.ValidationButton;
 import ru.pio.aclij.documents.financial.customcontrols.stage.DocumentActionCode;
 import ru.pio.aclij.documents.financial.customcontrols.stage.DocumentStage;
 import ru.pio.aclij.documents.financial.noderegistry.LabelTree;
@@ -72,6 +73,7 @@ public class DocumentController {
     private void update(){
         this.service.getUpdatedTree(this.stage.getDocument(), this.parentDocumentHelper, this.nodeRegistry);
         stage.addAction(DocumentActionCode.UPDATE);
+        new Alert(Alert.AlertType.INFORMATION, "Документ был обновлен").show();
     }
     @FXML
     private void delete(){

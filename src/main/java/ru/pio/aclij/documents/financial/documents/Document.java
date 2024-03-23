@@ -1,11 +1,10 @@
 package ru.pio.aclij.documents.financial.documents;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import jakarta.persistence.*;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import ru.pio.aclij.documents.controllers.helpers.ParentDocumentHelper;
 import ru.pio.aclij.documents.financial.documents.clients.User;
 import ru.pio.aclij.documents.financial.noderegistry.NodeRegistry;
@@ -13,11 +12,10 @@ import ru.pio.aclij.documents.financial.noderegistry.NodeRegistry;
 import java.time.LocalDate;
 import java.util.Optional;
 
-@NoArgsConstructor
 @Data
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-@JsonAutoDetect
+@AllArgsConstructor
 public abstract class Document implements ParentDocument {
 
 
@@ -25,7 +23,7 @@ public abstract class Document implements ParentDocument {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true, nullable = false, updatable = false)
     private String number;
 
     private LocalDate date;
@@ -42,6 +40,9 @@ public abstract class Document implements ParentDocument {
         this.date = date;
         this.user = user;
         this.amountOfMoney = amountOfMoney;
+    }
+
+    public Document() {
     }
 
     @Override

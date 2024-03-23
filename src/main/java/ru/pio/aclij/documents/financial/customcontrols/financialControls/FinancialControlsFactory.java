@@ -4,6 +4,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import ru.pio.aclij.documents.controllers.DocumentController;
+import ru.pio.aclij.documents.financial.customcontrols.financialControls.validation.AlertWrapper;
+import ru.pio.aclij.documents.financial.customcontrols.financialControls.validation.ValidatingTextField;
 import ru.pio.aclij.documents.financial.database.FinancialDatabaseManager;
 import ru.pio.aclij.documents.financial.documents.money.CurrencyCode;
 

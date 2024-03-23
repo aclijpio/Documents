@@ -1,4 +1,4 @@
-package ru.pio.aclij.documents.financial.customcontrols.financialControls;
+package ru.pio.aclij.documents.financial.customcontrols.financialControls.validation;
 
 import javafx.scene.control.Button;
 

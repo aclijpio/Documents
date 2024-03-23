@@ -1,8 +1,9 @@
 package ru.pio.aclij.documents.controllers.helpers;
 
 
-
+import javafx.beans.property.BooleanProperty;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 import ru.pio.aclij.documents.financial.documents.Document;
 
@@ -11,16 +12,16 @@ import ru.pio.aclij.documents.financial.documents.Document;
 public class DocumentItem{
 
     private final Document document;
-    private boolean selected;
+    @Setter
+    private BooleanProperty selected;
 
 
     public DocumentItem(Document document) {
         this.document = document;
-        this.selected = false;
     }
 
     public void select(){
-        this.selected = !this.selected;
+        selected.set(!selected.get());
     }
 
     public long getId(){
@@ -29,5 +30,7 @@ public class DocumentItem{
     public String getString(){
         return document.toString();
     }
-
+    public boolean isSelected(){
+        return this.selected.get();
+    }
 }

@@ -7,7 +7,6 @@ import jakarta.persistence.Table;
 import javafx.scene.control.TextField;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ru.pio.aclij.documents.controllers.helpers.ParentDocumentHelper;
 import ru.pio.aclij.documents.financial.documents.clients.Employee;
@@ -18,7 +17,6 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 @EqualsAndHashCode(callSuper = true)
-@NoArgsConstructor
 @Getter
 @Setter
 @Entity
@@ -31,6 +29,14 @@ public class Payment extends Document {
     public Payment(String number, LocalDate date, User user, double amountOfMoney, Employee employee) {
         super(number, date, user, amountOfMoney);
         this.employee = employee;
+    }
+
+    public Payment(Long id, String number, LocalDate date, User user, double amountOfMoney, Employee employee) {
+        super(id, number, date, user, amountOfMoney);
+        this.employee = employee;
+    }
+
+    public Payment() {
     }
 
     @Override

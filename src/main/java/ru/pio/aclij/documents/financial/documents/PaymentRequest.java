@@ -8,7 +8,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ru.pio.aclij.documents.controllers.exceptions.CurrencyDefaultNotSetException;
 import ru.pio.aclij.documents.controllers.helpers.ParentDocumentHelper;
@@ -25,7 +24,6 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 @EqualsAndHashCode(callSuper = true)
-@NoArgsConstructor
 @Getter
 @Setter
 @Entity
@@ -47,6 +45,16 @@ public class PaymentRequest extends Document {
         this.counterparty = counterparty;
         this.currency = currency;
         this.commission = commission;
+    }
+
+    public PaymentRequest(Long id, String number, LocalDate date, User user, double amountOfMoney, Counterparty counterparty, Currency currency, double commission) {
+        super(id, number, date, user, amountOfMoney);
+        this.counterparty = counterparty;
+        this.currency = currency;
+        this.commission = commission;
+    }
+
+    public PaymentRequest() {
     }
 
     @Override

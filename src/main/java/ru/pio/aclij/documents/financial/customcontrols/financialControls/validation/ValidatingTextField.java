@@ -1,4 +1,4 @@
-package ru.pio.aclij.documents.financial.customcontrols.financialControls;
+package ru.pio.aclij.documents.financial.customcontrols.financialControls.validation;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
@@ -9,7 +9,7 @@ public class ValidatingTextField extends TextField {
 
     private final Predicate<String> validation;
     private final AlertWrapper alertWrapper;
-    private String text = "";
+    private final String text = "";
 
     public ValidatingTextField(Predicate<String> validation, AlertWrapper alertWrapper) {
         this.validation = validation;

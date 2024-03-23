@@ -1,7 +1,5 @@
 package ru.pio.aclij.documents.controllers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableValue;
@@ -11,12 +9,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.cell.CheckBoxListCell;
-import javafx.scene.layout.VBox;
-import javafx.stage.FileChooser;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 import ru.pio.aclij.documents.controllers.helpers.DocumentItem;
 import ru.pio.aclij.documents.controllers.helpers.DocumentLoader;
+import ru.pio.aclij.documents.financial.customcontrols.stage.DocumentActionCode;
 import ru.pio.aclij.documents.financial.customcontrols.stage.DocumentStage;
 import ru.pio.aclij.documents.financial.database.FinancialDatabaseManager;
 import ru.pio.aclij.documents.financial.documents.Document;
@@ -25,58 +22,56 @@ import ru.pio.aclij.documents.financial.documents.Payment;
 import ru.pio.aclij.documents.financial.documents.PaymentRequest;
 import ru.pio.aclij.documents.services.FinancialMenuService;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.net.URL;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class
 FinancialMenuController implements Initializable {
     private final FinancialDatabaseManager databaseManager;
     private final FinancialMenuService service;
-    private final DocumentLoader documentLoader;
 
     @FXML
     private ListView<DocumentItem> documentList;
     @FXML
     private Button invoiceButton;
 
-    private VBox form;
 
     public FinancialMenuController(FinancialDatabaseManager databaseManager, DocumentLoader documentLoader) {
         this.databaseManager = databaseManager;
-        this.documentLoader = documentLoader;
 
         service = new FinancialMenuService(databaseManager, documentLoader, this);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        
 
-        documentList.setCellFactory(CheckBoxListCell.forListView(new Callback<DocumentItem, ObservableValue<Boolean>>() {
-             @Override
-             public ObservableValue<Boolean> call(DocumentItem documentItem) {
-                 BooleanProperty observable = new SimpleBooleanProperty();
-                 observable.addListener((obs, wasSelected, isNowSelected) -> {
-                     documentItem.select();
-                 });
-                 return observable;
-             }
-         }, new StringConverter<DocumentItem>() {
-             @Override
-             public String toString(DocumentItem documentItem) {
-                 return documentItem.getString();
-             }
+        documentList.setCellFactory(CheckBoxListCell.forListView(
+                new Callback<DocumentItem, ObservableValue<Boolean>>() {
+                    @Override
+                    public ObservableValue<Boolean> call(DocumentItem documentItem) {
 
-             @Override
-             public DocumentItem fromString(String s) {
-                 return null;
-             }
-         }
+                        BooleanProperty observable = new SimpleBooleanProperty();
+
+                        observable.addListener((obs, wasSelected, isNowSelected) -> {
+
+                        });
+                        return observable;
+                    }
+                }, new StringConverter<DocumentItem>() {
+                    @Override
+                    public String toString(DocumentItem documentItem) {
+                        return documentItem.getString();
+                    }
+
+                    @Override
+                    public DocumentItem fromString(String s) {
+                        return null;
+                    }
+                }
         ));
-
 
         documentList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
@@ -85,8 +80,10 @@ FinancialMenuController implements Initializable {
         );
     }
 
+    @FXML
+    private void checkbox(){
 
-
+    }
 
     @FXML
     private void showInvoiceForm() {
@@ -101,33 +98,18 @@ FinancialMenuController implements Initializable {
         service.createSceneByDocumentAndShow(new PaymentRequest());
     }
     @FXML
-    private void save() throws IOException {
-
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setInitialFileName("document.json");
-
-        File selectedFile = fileChooser.showSaveDialog(null);
-
-
-
-        try(FileWriter fileWriter = new FileWriter(selectedFile)) {
-            ObjectMapper objectMapper = new ObjectMapper();
-            objectMapper.registerModule(new JavaTimeModule());
-
-            Iterator<DocumentItem> iterator = documentList.getItems().iterator();
-            while (iterator.hasNext()) {
-                DocumentItem documentItem = iterator.next();
-                if (documentItem.isSelected()) {
-                    objectMapper.writeValue(fileWriter, documentItem.getDocument());
-                }
-            }
-        }
-
-
+    private void save() {
+        this.service.saveToJsonFile(
+                this.service.findSelectedDocumentItems(this.documentList)
+        );
     }
     @FXML
     private void load(){
-
+        Map<DocumentItem, DocumentActionCode> documentItems =  this.service.getReduceListLoad(
+                this.service.loadDocumentsFromJsonFile(),
+                this.documentList
+        );
+        this.service.addToDatabaseAndListView(documentItems, documentList);
     }
     @FXML
     public void showDocument(){
@@ -146,6 +128,7 @@ FinancialMenuController implements Initializable {
             }
         }
     }
+
 
     public void executeAction(DocumentStage stage, FinancialDatabaseManager databaseManager){
         switch (stage.getAction()){

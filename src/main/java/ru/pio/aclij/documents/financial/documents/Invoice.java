@@ -7,7 +7,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ru.pio.aclij.documents.controllers.helpers.ParentDocumentHelper;
 import ru.pio.aclij.documents.financial.documents.clients.User;
@@ -21,7 +20,6 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 @EqualsAndHashCode(callSuper = true)
-@NoArgsConstructor
 @Getter
 @Setter
 @Entity
@@ -39,6 +37,15 @@ public class Invoice extends Document {
         super(number, date, user, amountOfMoney);
         this.currency = currency;
         this.product = product;
+    }
+
+    public Invoice(Long id, String number, LocalDate date, User user, double amountOfMoney, Currency currency, Product product) {
+        super(id, number, date, user, amountOfMoney);
+        this.currency = currency;
+        this.product = product;
+    }
+
+    public Invoice() {
     }
 
     @Override

@@ -27,7 +27,7 @@
                      <font>
                         <Font size="11.0" />
                      </font></Button>
-                  <Button layoutX="27.0" layoutY="194.0" mnemonicParsing="false" text="Загрузить">
+                  <Button layoutX="27.0" layoutY="194.0" mnemonicParsing="false" onAction="#load" text="Загрузить">
                      <font>
                         <Font size="11.0" />
                      </font></Button>
