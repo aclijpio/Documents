@@ -7,11 +7,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
-import ru.pio.aclij.documents.config.source.AppConfig;
 import ru.pio.aclij.documents.config.ConfigLoader;
-import ru.pio.aclij.documents.controllers.helpers.DocumentLoader;
+import ru.pio.aclij.documents.config.source.AppConfig;
 import ru.pio.aclij.documents.controllers.FinancialMenuController;
 import ru.pio.aclij.documents.controllers.helpers.DocumentHelper;
+import ru.pio.aclij.documents.controllers.helpers.DocumentLoader;
 import ru.pio.aclij.documents.financial.database.FinancialDatabaseManager;
 import ru.pio.aclij.documents.financial.database.JpaUtil;
 
@@ -36,19 +36,9 @@ public class FinancialApplication extends Application{
 
         DocumentLoader documentLoader = new DocumentLoader(new DocumentHelper(databaseManager, appConfig.getFinancial()), appConfig.getFiles());
 
-        
-                
-        ;
-
-
-        fxmlLoader.setController(new FinancialMenuController(databaseManager, documentLoader));
-
-
-
-
+        fxmlLoader.setController(new FinancialMenuController(databaseManager, documentLoader, stage));
 
         Scene scene = new Scene(fxmlLoader.load());
-
 
         stage.setTitle("Financial");
         stage.setScene(scene);

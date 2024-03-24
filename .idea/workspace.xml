@@ -9,31 +9,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fd28413e-d9d3-4b89-9041-f86b94933c7a" name="Changes" comment="save and load">
+    <list default="true" id="fd28413e-d9d3-4b89-9041-f86b94933c7a" name="Changes" comment="finished">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/config/source/FinancialConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/config/source/FinancialConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dasda/das.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dasda/document.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dasda/document1.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dasda/documents5.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/FinancialApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/FinancialApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/controllers/FinancialMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/controllers/FinancialMenuController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/controllers/helpers/DocumentItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/controllers/helpers/DocumentItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/controllers/helpers/ParentDocumentHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/controllers/helpers/ParentDocumentHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/customcontrols/financialControls/CurrencyCodeComboBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/customcontrols/financialControls/CurrencyCodeComboBox.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/customcontrols/financialControls/FinancialControlsFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/customcontrols/financialControls/FinancialControlsFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/customcontrols/stage/DocumentStage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/customcontrols/stage/DocumentStage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/database/FinancialDatabaseManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/database/FinancialDatabaseManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/documents/Document.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/entities/Document.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/documents/Invoice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/entities/Invoice.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/documents/ParentDocument.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/entities/ParentDocument.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/documents/Payment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/entities/Payment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/documents/PaymentRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/entities/PaymentRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/documents/clients/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/entities/clients/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/documents/clients/Counterparty.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/entities/clients/Counterparty.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/documents/clients/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/entities/clients/Employee.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/documents/clients/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/entities/clients/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/documents/money/Currency.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/entities/money/Currency.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/documents/money/CurrencyCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/entities/money/CurrencyCode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/documents/money/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/entities/money/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/services/DocumentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/services/DocumentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/customcontrols/financialControls/replace/ReplaceAlert.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/customcontrols/financialControls/replace/ReplaceAlert.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/entities/Document.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/entities/Document.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/entities/Invoice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/entities/Invoice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/entities/Payment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/entities/Payment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/entities/PaymentRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/financial/entities/PaymentRequest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/services/FinancialMenuService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/pio/aclij/documents/services/FinancialMenuService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ru/pio/aclij/documents/financial-menu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ru/pio/aclij/documents/financial-menu.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,6 +99,7 @@
     &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/tein/IdeaProjects/Documents/фоточки&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -129,6 +121,9 @@
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="ru.pio.aclij.documents.config" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/фоточки" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources/META-INF" />
@@ -212,6 +207,11 @@
       <workItem from="1711176489999" duration="40642000" />
       <workItem from="1711226373211" duration="1927000" />
       <workItem from="1711231432072" duration="19000" />
+      <workItem from="1711231503688" duration="22000" />
+      <workItem from="1711264055560" duration="6341000" />
+      <workItem from="1711270414524" duration="12000" />
+      <workItem from="1711296234908" duration="2198000" />
+      <workItem from="1711300380220" duration="47000" />
     </task>
     <task id="LOCAL-00001" summary="document bd">
       <option name="closed" value="true" />
@@ -285,7 +285,15 @@
       <option name="project" value="LOCAL" />
       <updated>1711227939096</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="save and load">
+      <option name="closed" value="true" />
+      <created>1711231518930</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1711231518930</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -297,7 +305,8 @@
     <MESSAGE value="controls" />
     <MESSAGE value="entity" />
     <MESSAGE value="save and load" />
-    <option name="LAST_COMMIT_MESSAGE" value="save and load" />
+    <MESSAGE value="finished" />
+    <option name="LAST_COMMIT_MESSAGE" value="finished" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">

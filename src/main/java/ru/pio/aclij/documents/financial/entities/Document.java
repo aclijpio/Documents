@@ -1,5 +1,7 @@
 package ru.pio.aclij.documents.financial.entities;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import jakarta.persistence.*;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
@@ -16,6 +18,13 @@ import java.util.Optional;
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @AllArgsConstructor
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Invoice.class, name = "invoice"),
+        @JsonSubTypes.Type(value = Payment.class, name = "payment"),
+        @JsonSubTypes.Type(value = PaymentRequest.class, name = "paymentRequest")
+})
+
 public abstract class Document implements ParentDocument {
 
 
@@ -64,7 +73,6 @@ public abstract class Document implements ParentDocument {
     public Document fromNodeTree(ParentDocumentHelper helper, NodeRegistry nodeRegistry) {
 
         TextField textField = nodeRegistry.getNode(TextField.class);
-        textField.setEditable(false);
         this.number = textField.getText();
         this.date = nodeRegistry.getNode(DatePicker.class).getValue();
         String username = nodeRegistry.getNode(TextField.class).getText();

@@ -1,7 +1,9 @@
 package ru.pio.aclij.documents.services;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
@@ -39,6 +41,7 @@ public class FinancialMenuService {
     private final DocumentLoader loader;
     private final FinancialMenuController controller;
     private final ObjectMapper objectMapper;
+
 
     public FinancialMenuService(FinancialDatabaseManager databaseManager, DocumentLoader loader, FinancialMenuController controller) {
         this.databaseManager = databaseManager;
@@ -124,10 +127,14 @@ public class FinancialMenuService {
 
                 return documents;
 
+            } catch (StreamReadException e) {
+                throw new RuntimeException(e);
+            } catch (DatabindException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
-            catch (IOException e){
-                callErrorAlert("Не удалось загрузить файл.");
-            }
+
         }
         return List.of();
     }
@@ -152,12 +159,10 @@ public class FinancialMenuService {
                 addingDocument.put(item, DocumentActionCode.UPDATE);
             } else {
                 DocumentItem documentItem = new DocumentItem(document);
-                documentItem.select();
                 addingDocument.put(documentItem, DocumentActionCode.ADD);
             }
 
         }
-        System.out.println(addingDocument);
         return addingDocument;
     }
     public Optional<DocumentItem> getIfExists(Document document, ListView<DocumentItem> list){
@@ -169,8 +174,7 @@ public class FinancialMenuService {
         map.forEach((key, item) -> {
             switch (item) {
                 case UPDATE -> {
-                    System.out.println("U");
-                    removeDocumentItemById(key.getId(), list);
+                    removeDocumentItemById(key.getDocument().getId(), list);
                     list.getItems().add(key);
                     databaseManager.update(key.getDocument());
                 }
@@ -189,7 +193,7 @@ public class FinancialMenuService {
     }
 
     private void removeDocumentItemById(Long id, ListView<DocumentItem> list){
-        list.getItems().removeIf(documentItem -> documentItem.getId() == id);
+        list.getItems().removeIf(documentItem -> documentItem.getDocument().getId().equals(id));
 
     }
 

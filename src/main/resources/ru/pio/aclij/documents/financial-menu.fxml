@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <?import java.net.URL?>
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="financial_menu_container" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ListView fx:id="documentList" prefHeight="380.0" prefWidth="253.0" styleClass="document_log" stylesheets="@Styles/menu.css" HBox.hgrow="ALWAYS" />
+      <VBox onMouseClicked="#checkbox" prefHeight="200.0" prefWidth="100.0" styleClass="document_log" stylesheets="@Styles/menu.css" HBox.hgrow="ALWAYS">
+         <children>
+            <CheckBox mnemonicParsing="false" onAction="#checkbox">
+               <padding>
+                  <Insets bottom="5.0" left="8.0" />
+               </padding>
+            </CheckBox>
+            <ListView fx:id="documentList" prefHeight="380.0" prefWidth="253.0" />
+         </children>
+      </VBox>
       <VBox alignment="TOP_RIGHT" prefHeight="380.0" prefWidth="154.0" styleClass="right_bar">
          <children>
             <VBox alignment="TOP_CENTER" prefHeight="318.0" prefWidth="200.0" styleClass="document_buttons_container" stylesheets="@Styles/menu.css" VBox.vgrow="ALWAYS">
@@ -44,7 +54,7 @@
             </VBox>
             <BorderPane prefHeight="62.0" prefWidth="154.0" VBox.vgrow="NEVER">
                <center>
-                  <Button mnemonicParsing="false" text="Выход" BorderPane.alignment="CENTER" />
+                  <Button mnemonicParsing="false" onAction="#close" text="Выход" BorderPane.alignment="CENTER" />
                </center>
             </BorderPane>
          </children>

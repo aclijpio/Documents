@@ -1,5 +1,6 @@
 package ru.pio.aclij.documents.financial.entities;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -28,6 +29,7 @@ import java.util.Optional;
 @Setter
 @Entity
 @Table(name = "payment_requests")
+@JsonTypeName("paymentRequest")
 public class PaymentRequest extends Document {
 
     @ManyToOne()

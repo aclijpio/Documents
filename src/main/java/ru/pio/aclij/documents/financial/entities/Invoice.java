@@ -1,5 +1,6 @@
 package ru.pio.aclij.documents.financial.entities;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -23,6 +24,7 @@ import java.util.Optional;
 @Getter
 @Setter
 @Entity
+@JsonTypeName("invoice")
 public class Invoice extends Document {
 
     @ManyToOne()
@@ -73,12 +75,10 @@ public class Invoice extends Document {
         if (currency.isEmpty())
             throw new NodeUnavailableException("Currency not found");
         this.currency = currency.get();
-
+        nodeRegistry.skip();
         String productName =  nodeRegistry.getNode(TextField.class).getText();
         Optional<Product> product = helper.getHelper().getDatabaseManager().findByName(Product.class, productName);
-        nodeRegistry.skip();
         double quantity = Double.parseDouble(nodeRegistry.getNode(TextField.class).getText());
-
         if (product.isEmpty()) {
             this.product = new Product(productName, quantity);
             helper.getHelper().getDatabaseManager().save(this.product);

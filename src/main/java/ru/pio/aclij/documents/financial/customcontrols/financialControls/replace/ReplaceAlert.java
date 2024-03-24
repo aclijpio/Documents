@@ -14,7 +14,7 @@ public class ReplaceAlert extends Alert {
         this.replaceCode = ReplaceCode.EMPTY;
 
         this.setTitle("Warning");
-        this.setHeaderText("Такой документ уже существует в спике \n" + documentItem.getString());
+        this.setHeaderText("Такой документ уже существует в спике \n" + documentItem.getDocument().toString());
         this.setContentText("Выберите действие: ");
 
         ButtonType replaceThisButton = new ButtonType("Заменить этот документ");

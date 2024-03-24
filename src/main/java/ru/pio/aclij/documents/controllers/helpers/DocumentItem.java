@@ -2,35 +2,37 @@ package ru.pio.aclij.documents.controllers.helpers;
 
 
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 import ru.pio.aclij.documents.financial.entities.Document;
 
 @ToString
 @Getter
-public class DocumentItem{
-
+public class DocumentItem {
     private final Document document;
-    @Setter
-    private BooleanProperty selected;
-
+    private final BooleanProperty selected;
 
     public DocumentItem(Document document) {
         this.document = document;
+        this.selected = new SimpleBooleanProperty(false);
     }
 
+    public boolean isSelected() {
+        return selected.get();
+    }
+
+    public void setSelected(boolean value) {
+        selected.set(value);
+    }
+
+    public BooleanProperty selectedProperty() {
+        return selected;
+    }
     public void select(){
-        selected.set(!selected.get());
+        this.setSelected(true);
     }
-
-    public long getId(){
-        return document.getId();
-    }
-    public String getString(){
-        return document.toString();
-    }
-    public boolean isSelected(){
-        return this.selected.get();
+    public void unselect(){
+        this.setSelected(false);
     }
 }

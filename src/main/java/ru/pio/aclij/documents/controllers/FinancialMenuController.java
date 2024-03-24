@@ -1,7 +1,6 @@
 package ru.pio.aclij.documents.controllers;
 
 import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -9,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.cell.CheckBoxListCell;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 import ru.pio.aclij.documents.controllers.helpers.DocumentItem;
@@ -31,16 +31,18 @@ public class
 FinancialMenuController implements Initializable {
     private final FinancialDatabaseManager databaseManager;
     private final FinancialMenuService service;
-
+    private boolean mainCheckbox = false;
+    private final Stage stage;
     @FXML
     private ListView<DocumentItem> documentList;
     @FXML
     private Button invoiceButton;
 
 
-    public FinancialMenuController(FinancialDatabaseManager databaseManager, DocumentLoader documentLoader) {
-        this.databaseManager = databaseManager;
 
+    public FinancialMenuController(FinancialDatabaseManager databaseManager, DocumentLoader documentLoader, Stage stage) {
+        this.databaseManager = databaseManager;
+        this.stage = stage;
         service = new FinancialMenuService(databaseManager, documentLoader, this);
     }
 
@@ -52,18 +54,20 @@ FinancialMenuController implements Initializable {
                 new Callback<DocumentItem, ObservableValue<Boolean>>() {
                     @Override
                     public ObservableValue<Boolean> call(DocumentItem documentItem) {
+                        // Получаем существующий BooleanProperty из объекта DocumentItem
+                        BooleanProperty observable = documentItem.selectedProperty();
 
-                        BooleanProperty observable = new SimpleBooleanProperty();
-
+                        // Добавляем слушатель, если нужно
                         observable.addListener((obs, wasSelected, isNowSelected) -> {
-
+                            // Действия при изменении состояния флажка
                         });
+
                         return observable;
                     }
                 }, new StringConverter<DocumentItem>() {
                     @Override
                     public String toString(DocumentItem documentItem) {
-                        return documentItem.getString();
+                        return documentItem.getDocument().toString();
                     }
 
                     @Override
@@ -78,10 +82,27 @@ FinancialMenuController implements Initializable {
         documentList.setItems(
                 service.findAllDocuments()
         );
-    }
 
+
+
+    }
+    @FXML
+    private void close(){
+        this.stage.close();
+    }
     @FXML
     private void checkbox(){
+        if (mainCheckbox){
+            documentList.getItems()
+                    .forEach(DocumentItem::unselect);
+
+        } else {
+            documentList.getItems()
+                    .forEach(DocumentItem::select);
+        }
+        mainCheckbox = !mainCheckbox;
+    }
+    public void selectAll(){
 
     }
 
@@ -118,13 +139,17 @@ FinancialMenuController implements Initializable {
     }
     @FXML
     public void delete(){
+        int count= 0;
+        if (!documentList.getItems().isEmpty()) {
+            Iterator<DocumentItem> iterator = documentList.getItems().iterator();
 
-        Iterator<DocumentItem> iterator = documentList.getItems().iterator();
-        while (iterator.hasNext()){
-            DocumentItem documentItem = iterator.next();
-            if (documentItem.isSelected()){
-                iterator.remove();
-                databaseManager.delete(documentItem.getDocument());
+            while (iterator.hasNext()) {
+                count++;
+                DocumentItem documentItem = iterator.next();
+                if (documentItem.isSelected()) {
+                    iterator.remove();
+                    databaseManager.delete(documentItem.getDocument());
+                }
             }
         }
     }
@@ -143,7 +168,7 @@ FinancialMenuController implements Initializable {
                     Iterator<DocumentItem> iterator = documentList.getItems().iterator();
 
                     while(iterator.hasNext()){
-                        if (iterator.next().getId() == id){
+                        if (iterator.next().getDocument().getId() == id){
                             iterator.remove();
                             documentList.getItems().add(0, new DocumentItem(document));
                             break;
